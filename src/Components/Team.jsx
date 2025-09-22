@@ -93,8 +93,8 @@ const Team = () => {
       id="team"
       className="py-12 sm:py-16 lg:py-20 px-4 lg:px-8 min-h-screen flex items-center relative overflow-hidden" 
       style={{ 
-        paddingTop: '100px', 
-        scrollMarginTop: '80px',
+        paddingTop: '160px', 
+        scrollMarginTop: '120px',
         background: 'linear-gradient(135deg, #f8f6ff 0%, #ffffff 100%)'
       }}
     >

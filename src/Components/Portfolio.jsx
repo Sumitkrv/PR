@@ -81,8 +81,8 @@ const CaseStudies = () => {
       id="case-studies" 
       className="py-12 sm:py-16 lg:py-20 relative overflow-hidden" 
       style={{ 
-        paddingTop: '120px', 
-        scrollMarginTop: '100px',
+        paddingTop: '160px', 
+        scrollMarginTop: '120px',
         background: 'linear-gradient(135deg, #f8f6ff 0%, #ffffff 100%)'
       }}
     >
