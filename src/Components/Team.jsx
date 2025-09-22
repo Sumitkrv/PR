@@ -91,73 +91,77 @@ const Team = () => {
   return (
     <section 
       id="team"
-      className="py-20 px-4 lg:px-8 bg-gradient-to-br from-purple-50 to-white min-h-screen flex items-center relative overflow-hidden" 
+      className="py-12 sm:py-16 lg:py-20 px-4 lg:px-8 min-h-screen flex items-center relative overflow-hidden" 
       style={{ 
-        paddingTop: '140px', 
+        paddingTop: '100px', 
         scrollMarginTop: '80px',
         background: 'linear-gradient(135deg, #f8f6ff 0%, #ffffff 100%)'
       }}
     >
-      {/* Decorative elements */}
+      {/* Optimized Decorative elements */}
       <div 
-        className="absolute top-0 left-0 w-72 h-72 rounded-full -translate-x-1/2 -translate-y-1/2 opacity-20"
+        className="absolute top-0 left-0 w-48 sm:w-72 h-48 sm:h-72 rounded-full -translate-x-1/2 -translate-y-1/2 opacity-15"
         style={{ backgroundColor: '#8666A5' }}
       ></div>
       <div 
-        className="absolute bottom-0 right-0 w-96 h-96 rounded-full translate-x-1/3 translate-y-1/3 opacity-20"
+        className="absolute bottom-0 right-0 w-64 sm:w-96 h-64 sm:h-96 rounded-full translate-x-1/3 translate-y-1/3 opacity-15"
         style={{ backgroundColor: '#8666A5' }}
       ></div>
       
       <div className="max-w-7xl mx-auto w-full relative z-10">
-        {/* Header */}
-        <div className={`text-center mb-16 transition-all duration-1000 ease-out ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">Meet Our Team</h2>
+        {/* Header - Mobile Optimized */}
+        <div className={`text-center mb-12 sm:mb-16 transition-all duration-700 ease-out ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">Meet Our Team</h2>
           <div 
-            className="w-24 h-1 mx-auto mb-6"
+            className="w-20 sm:w-24 h-1 mx-auto mb-6"
             style={{ backgroundColor: '#8666A5' }}
           ></div>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+          <p className="text-base sm:text-lg text-gray-600 max-w-2xl mx-auto px-4">
             Talented professionals dedicated to elevating your brand with innovative strategies and creative solutions.
           </p>
         </div>
         
-        {/* Team Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {/* Team Grid - Improved Mobile Layout */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
           {teamMembers.map((member, index) => (
             <div 
               key={member.id}
-              className={`bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-500 transform hover:-translate-y-2 group relative ${
+              className={`bg-white rounded-2xl p-4 sm:p-6 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 group relative ${
                 isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
               }`}
               style={{ 
                 transitionDelay: `${index * 100}ms`,
-                border: '1px solid rgba(134, 102, 165, 0.1)'
+                border: '1px solid rgba(134, 102, 165, 0.1)',
+                willChange: 'transform' // Optimize for animations
               }}
               onMouseEnter={() => !isMobile && setActiveMember(member.id)}
               onMouseLeave={() => !isMobile && setActiveMember(null)}
             >
-              <div className="avatar-container w-28 h-28 mx-auto mb-6 relative">
+              {/* Avatar - Mobile Optimized */}
+              <div className="avatar-container w-20 h-20 sm:w-24 sm:h-24 lg:w-28 lg:h-28 mx-auto mb-4 sm:mb-6 relative">
                 <div className="w-full h-full rounded-full overflow-hidden border-4 border-white shadow-lg">
                   <img 
                     src={member.image} 
                     alt={member.name}
                     className="w-full h-full object-cover"
+                    loading="lazy"
                   />
                 </div>
-                <div className="avatar-badge absolute bottom-2 right-2 w-4 h-4 rounded-full bg-green-500 border-2 border-white"></div>
+                <div className="avatar-badge absolute bottom-1 right-1 sm:bottom-2 sm:right-2 w-3 h-3 sm:w-4 sm:h-4 rounded-full bg-green-500 border-2 border-white"></div>
               </div>
               
-              <h3 className="text-xl font-semibold text-gray-900 text-center mb-2">{member.name}</h3>
+              <h3 className="text-lg sm:text-xl font-semibold text-gray-900 text-center mb-2">{member.name}</h3>
               <p 
-                className="text-center mb-4"
+                className="text-center mb-3 sm:mb-4 text-sm sm:text-base"
                 style={{ color: '#8666A5' }}
               >{member.role}</p>
               
-              <div className="flex justify-center flex-wrap gap-2 mb-4">
+              {/* Skills - Mobile Optimized */}
+              <div className="flex justify-center flex-wrap gap-1 sm:gap-2 mb-3 sm:mb-4">
                 {member.skills.map((skill, i) => (
                   <span 
                     key={i} 
-                    className="px-3 py-1 text-xs rounded-full"
+                    className="px-2 py-1 text-xs rounded-full"
                     style={{ 
                       backgroundColor: 'rgba(134, 102, 165, 0.1)', 
                       color: '#8666A5' 
@@ -168,14 +172,15 @@ const Team = () => {
                 ))}
               </div>
               
-              <p className="text-gray-600 text-sm text-center mb-6 min-h-[72px]">{member.bio}</p>
+              <p className="text-gray-600 text-xs sm:text-sm text-center mb-4 sm:mb-6 min-h-[60px] sm:min-h-[72px] leading-relaxed">{member.bio}</p>
               
-              <div className="social-icons flex justify-center space-x-4 opacity-100 md:opacity-0 md:translate-y-4 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0">
+              {/* Social Icons - Mobile Optimized */}
+              <div className="social-icons flex justify-center space-x-3 sm:space-x-4 opacity-100 md:opacity-0 md:translate-y-4 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0">
                 {member.social.map((SocialIcon, i) => (
                   <a 
                     key={i}
                     href="#" 
-                    className="w-10 h-10 rounded-full transition-colors flex items-center justify-center"
+                    className="w-8 h-8 sm:w-10 sm:h-10 rounded-full transition-colors flex items-center justify-center"
                     style={{ 
                       backgroundColor: 'rgba(134, 102, 165, 0.1)',
                       color: '#8666A5'
@@ -189,71 +194,72 @@ const Team = () => {
                       e.target.style.color = '#8666A5';
                     }}
                   >
-                    <SocialIcon className="text-sm" />
+                    <SocialIcon className="text-xs sm:text-sm" />
                   </a>
                 ))}
               </div>
 
-              {/* Quote that appears on hover */}
+              {/* Quote - Mobile Optimized */}
               <div 
-                className={`mt-4 text-white p-4 rounded-lg transition-all duration-300 
+                className={`mt-3 sm:mt-4 text-white p-3 sm:p-4 rounded-lg transition-all duration-300 
                   ${activeMember === member.id ? 'max-h-32 opacity-100' : 'max-h-0 opacity-0 overflow-hidden'}
                   md:absolute md:bottom-4 md:left-4 md:right-4 md:mt-0`}
                 style={{ backgroundColor: '#8666A5' }}
               >
                 <FaQuoteLeft 
-                  className="mb-2" 
+                  className="mb-2 text-xs sm:text-sm" 
                   style={{ color: 'rgba(255, 255, 255, 0.7)' }}
                 />
-                <p className="text-sm italic">{member.quote}</p>
+                <p className="text-xs sm:text-sm italic leading-relaxed">{member.quote}</p>
               </div>
             </div>
           ))}
         </div>
         
-        {/* Stats Section */}
+        {/* Stats Section - Mobile Optimized */}
         <div 
-          className="bg-white rounded-2xl p-8 shadow-lg mt-16"
+          className="bg-white rounded-2xl p-6 sm:p-8 shadow-lg mt-12 sm:mt-16"
           style={{ border: '1px solid rgba(134, 102, 165, 0.1)' }}
         >
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
             <div className="text-center">
               <div 
-                className="text-4xl font-bold mb-2"
+                className="text-3xl sm:text-4xl font-bold mb-2"
                 style={{ color: '#8666A5' }}
               >50+</div>
-              <div className="text-gray-600">Happy Clients</div>
+              <div className="text-gray-600 text-sm sm:text-base">Happy Clients</div>
             </div>
             <div className="text-center">
               <div 
-                className="text-4xl font-bold mb-2"
+                className="text-3xl sm:text-4xl font-bold mb-2"
                 style={{ color: '#8666A5' }}
               >120+</div>
-              <div className="text-gray-600">Projects</div>
+              <div className="text-gray-600 text-sm sm:text-base">Projects</div>
             </div>
             <div className="text-center">
               <div 
-                className="text-4xl font-bold mb-2"
+                className="text-3xl sm:text-4xl font-bold mb-2"
                 style={{ color: '#8666A5' }}
               >15+</div>
-              <div className="text-gray-600">Years Experience</div>
+              <div className="text-gray-600 text-sm sm:text-base">Years Experience</div>
             </div>
             <div className="text-center">
               <div 
-                className="text-4xl font-bold mb-2"
+                className="text-3xl sm:text-4xl font-bold mb-2"
                 style={{ color: '#8666A5' }}
               >25+</div>
-              <div className="text-gray-600">Awards</div>
+              <div className="text-gray-600 text-sm sm:text-base">Awards</div>
             </div>
           </div>
         </div>
         
-        {/* CTA Button */}
-        <div className="text-center mt-16">
+        {/* CTA Button - Mobile Optimized */}
+        <div className="text-center mt-12 sm:mt-16">
           <button 
-            className="px-8 py-3 text-white rounded-full font-medium transition-all shadow-md hover:shadow-lg transform hover:-translate-y-0.5 flex items-center mx-auto"
+            className="px-6 py-3 sm:px-8 sm:py-3 text-white rounded-full font-medium transition-all shadow-md hover:shadow-lg transform hover:-translate-y-0.5 flex items-center mx-auto text-sm sm:text-base"
             style={{ 
-              background: 'linear-gradient(135deg, #8666A5 0%, #6b4d7a 100%)'
+              background: 'linear-gradient(135deg, #8666A5 0%, #6b4d7a 100%)',
+              willChange: 'transform'
             }}
             onMouseEnter={(e) => {
               e.target.style.background = 'linear-gradient(135deg, #6b4d7a 0%, #5a3f68 100%)';
@@ -263,7 +269,7 @@ const Team = () => {
             }}
           >
             View All Team Members
-            <FaArrowRight className="ml-2" />
+            <FaArrowRight className="ml-2 text-xs sm:text-sm" />
           </button>
         </div>
       </div>

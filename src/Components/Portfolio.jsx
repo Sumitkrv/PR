@@ -79,16 +79,17 @@ const CaseStudies = () => {
   return (
     <section 
       id="case-studies" 
-      className="py-20 relative overflow-hidden" 
+      className="py-12 sm:py-16 lg:py-20 relative overflow-hidden" 
       style={{ 
-        paddingTop: '140px', 
+        paddingTop: '100px', 
         scrollMarginTop: '80px',
         background: 'linear-gradient(135deg, #f8f6ff 0%, #ffffff 100%)'
       }}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
-        <div className={`text-center mb-16 transition-all duration-1000 ease-out ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        {/* Header - Mobile Optimized */}
+        <div className={`text-center mb-12 sm:mb-16 transition-all duration-700 ease-out ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-800 mb-4">
             Impact <span 
               className="bg-clip-text text-transparent"
               style={{ 
@@ -99,36 +100,38 @@ const CaseStudies = () => {
             >Case Studies</span>
           </h2>
           <div 
-            className="w-20 h-1 mx-auto mb-6"
+            className="w-16 sm:w-20 h-1 mx-auto mb-6"
             style={{ background: 'linear-gradient(135deg, #8666A5 0%, #6b4d7a 100%)' }}
           ></div>
-          <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
+          <p className="text-base sm:text-lg lg:text-xl text-gray-600 max-w-3xl mx-auto px-4">
             Discover how our strategic creative solutions delivered measurable business results for clients across industries
           </p>
         </div>
 
-        {/* Case Studies Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
+        {/* Case Studies Grid - Mobile Optimized */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 mb-12 sm:mb-16">
           {caseStudies.map((study, index) => (
             <div 
               key={study.id} 
-              className={`bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-500 transform hover:-translate-y-1 ${isVisible ? 'opacity-100' : 'opacity-0'}`}
+              className={`bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 ${isVisible ? 'opacity-100' : 'opacity-0'}`}
               style={{ 
                 transitionDelay: `${index * 100}ms`,
-                border: '1px solid rgba(134, 102, 165, 0.1)'
+                border: '1px solid rgba(134, 102, 165, 0.1)',
+                willChange: 'transform'
               }}
             >
-              <div className="relative overflow-hidden h-64">
-                {/* Placeholder for empty images */}
+              {/* Image Section - Mobile Optimized */}
+              <div className="relative overflow-hidden h-48 sm:h-56 lg:h-64">
                 {study.image ? (
                   <img 
                     src={study.image} 
                     alt={study.title}
                     className="w-full h-full object-cover"
+                    loading="lazy"
                   />
                 ) : (
                   <div 
-                    className="w-full h-full flex items-center justify-center text-white text-6xl font-bold"
+                    className="w-full h-full flex items-center justify-center text-white text-4xl sm:text-5xl lg:text-6xl font-bold"
                     style={{ background: 'linear-gradient(135deg, #8666A5 0%, #6b4d7a 100%)' }}
                   >
                     📸
@@ -136,61 +139,63 @@ const CaseStudies = () => {
                 )}
                 {study.highlight && (
                   <div 
-                    className="absolute top-4 left-4 text-white text-xs font-bold px-3 py-1 rounded-full"
+                    className="absolute top-3 left-3 sm:top-4 sm:left-4 text-white text-xs font-bold px-2 py-1 sm:px-3 sm:py-1 rounded-full"
                     style={{ backgroundColor: '#8666A5' }}
                   >
                     Featured Results
                   </div>
                 )}
                 <div 
-                  className="absolute bottom-4 left-4 text-white text-sm font-medium px-3 py-1 rounded-full"
+                  className="absolute bottom-3 left-3 sm:bottom-4 sm:left-4 text-white text-xs sm:text-sm font-medium px-2 py-1 sm:px-3 sm:py-1 rounded-full"
                   style={{ backgroundColor: '#8666A5' }}
                 >
                   {study.client}
                 </div>
               </div>
               
-              <div className="p-6">
-                <div className="flex justify-between items-start mb-4">
-                  <h3 className="text-xl font-bold text-gray-800">{study.title}</h3>
-                  <span className="bg-gray-100 text-gray-600 text-xs font-medium px-2.5 py-1 rounded">
+              {/* Content Section - Mobile Optimized */}
+              <div className="p-4 sm:p-6">
+                <div className="flex justify-between items-start mb-3 sm:mb-4">
+                  <h3 className="text-lg sm:text-xl font-bold text-gray-800 leading-tight pr-2">{study.title}</h3>
+                  <span className="bg-gray-100 text-gray-600 text-xs font-medium px-2 py-1 sm:px-2.5 sm:py-1 rounded flex-shrink-0">
                     {study.duration}
                   </span>
                 </div>
                 
-                <div className="mb-4">
+                <div className="mb-3 sm:mb-4">
                   <span 
-                    className="text-sm font-semibold text-white px-2.5 py-1 rounded"
+                    className="text-xs sm:text-sm font-semibold text-white px-2 py-1 sm:px-2.5 sm:py-1 rounded"
                     style={{ backgroundColor: 'rgba(134, 102, 165, 0.8)' }}
                   >
                     {study.category}
                   </span>
                 </div>
                 
-                <p className="text-gray-600 mb-4">
+                <p className="text-gray-600 mb-4 text-sm sm:text-base leading-relaxed">
                   <span className="font-semibold">Challenge: </span>
                   {study.challenge}
                 </p>
                 
-                <div className="grid grid-cols-3 gap-4 mb-6">
+                {/* Results Grid - Mobile Optimized */}
+                <div className="grid grid-cols-3 gap-2 sm:gap-4 mb-4 sm:mb-6">
                   {study.results.map((result, i) => (
                     <div 
                       key={i} 
-                      className="text-center p-3 rounded-lg"
+                      className="text-center p-2 sm:p-3 rounded-lg"
                       style={{ backgroundColor: 'rgba(134, 102, 165, 0.05)' }}
                     >
                       <div 
-                        className="text-xl font-bold"
+                        className="text-lg sm:text-xl font-bold"
                         style={{ color: '#8666A5' }}
                       >{result.metric}</div>
-                      <div className="text-xs text-gray-600 mt-1">{result.description}</div>
+                      <div className="text-xs text-gray-600 mt-1 leading-tight">{result.description}</div>
                     </div>
                   ))}
                 </div>
                 
                 <button 
                   onClick={() => setActiveCaseStudy(study)}
-                  className="w-full font-medium py-2.5 rounded-lg transition-all duration-300 flex items-center justify-center"
+                  className="w-full font-medium py-2 sm:py-2.5 rounded-lg transition-all duration-300 flex items-center justify-center text-sm sm:text-base"
                   style={{ 
                     background: 'linear-gradient(135deg, rgba(134, 102, 165, 0.1) 0%, rgba(134, 102, 165, 0.2) 100%)',
                     color: '#8666A5'
@@ -203,7 +208,7 @@ const CaseStudies = () => {
                   }}
                 >
                   View Detailed Case Study
-                  <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <svg className="w-3 h-3 sm:w-4 sm:h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7"></path>
                   </svg>
                 </button>
@@ -212,41 +217,44 @@ const CaseStudies = () => {
           ))}
         </div>
 
-        {/* Results Summary Section */}
+        {/* Results Summary Section - Mobile Optimized */}
         <div 
-          className={`rounded-2xl p-8 md:p-12 text-white mb-16 transition-all duration-1000 delay-500 ease-out ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
+          className={`rounded-2xl p-6 sm:p-8 lg:p-12 text-white mb-12 sm:mb-16 transition-all duration-700 delay-300 ease-out ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
           style={{ background: 'linear-gradient(135deg, #8666A5 0%, #6b4d7a 100%)' }}
         >
-          <h3 className="text-2xl md:text-3xl font-bold mb-6">Our Impact By Numbers</h3>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+          <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold mb-4 sm:mb-6">Our Impact By Numbers</h3>
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
             <div className="text-center">
-              <div className="text-3xl md:text-4xl font-bold mb-2">150+</div>
-              <div className="text-sm md:text-base">Successful Campaigns</div>
+              <div className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-1 sm:mb-2">150+</div>
+              <div className="text-xs sm:text-sm lg:text-base">Successful Campaigns</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl md:text-4xl font-bold mb-2">₹320Cr+</div>
-              <div className="text-sm md:text-base">Revenue Generated</div>
+              <div className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-1 sm:mb-2">₹320Cr+</div>
+              <div className="text-xs sm:text-sm lg:text-base">Revenue Generated</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl md:text-4xl font-bold mb-2">85%</div>
-              <div className="text-sm md:text-base">Client Retention Rate</div>
+              <div className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-1 sm:mb-2">85%</div>
+              <div className="text-xs sm:text-sm lg:text-base">Client Retention Rate</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl md:text-4xl font-bold mb-2">12</div>
-              <div className="text-sm md:text-base">Industry Awards</div>
+              <div className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-1 sm:mb-2">12</div>
+              <div className="text-xs sm:text-sm lg:text-base">Industry Awards</div>
             </div>
           </div>
         </div>
 
-        {/* CTA Section */}
-        <div className={`text-center transition-all duration-1000 delay-700 ease-out ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-          <h3 className="text-2xl md:text-3xl font-bold text-gray-800 mb-6">Ready to achieve similar results?</h3>
-          <p className="text-gray-600 max-w-2xl mx-auto mb-8">
+        {/* CTA Section - Mobile Optimized */}
+        <div className={`text-center transition-all duration-700 delay-500 ease-out ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+          <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-800 mb-4 sm:mb-6 px-4">Ready to achieve similar results?</h3>
+          <p className="text-gray-600 max-w-2xl mx-auto mb-6 sm:mb-8 text-sm sm:text-base px-4">
             Let's discuss how our strategic approach can drive measurable growth for your brand.
           </p>
           <button 
-            className="text-white px-8 py-3 rounded-xl font-semibold transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
-            style={{ background: 'linear-gradient(135deg, #8666A5 0%, #6b4d7a 100%)' }}
+            className="text-white px-6 py-3 sm:px-8 sm:py-3 rounded-xl font-semibold transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 text-sm sm:text-base"
+            style={{ 
+              background: 'linear-gradient(135deg, #8666A5 0%, #6b4d7a 100%)',
+              willChange: 'transform'
+            }}
             onMouseEnter={(e) => {
               e.target.style.background = 'linear-gradient(135deg, #6b4d7a 0%, #5a3f68 100%)';
             }}
@@ -259,11 +267,11 @@ const CaseStudies = () => {
         </div>
       </div>
 
-      {/* Case Study Modal */}
+      {/* Case Study Modal - Mobile Optimized */}
       {activeCaseStudy && (
         <div className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center p-4 z-50">
           <div className="bg-white rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
-            <div className="relative h-64 md:h-80">
+            <div className="relative h-48 sm:h-64 lg:h-80">
               {activeCaseStudy.image ? (
                 <img 
                   src={activeCaseStudy.image} 
@@ -272,7 +280,7 @@ const CaseStudies = () => {
                 />
               ) : (
                 <div 
-                  className="w-full h-full flex items-center justify-center text-white text-8xl"
+                  className="w-full h-full flex items-center justify-center text-white text-6xl sm:text-7xl lg:text-8xl"
                   style={{ background: 'linear-gradient(135deg, #8666A5 0%, #6b4d7a 100%)' }}
                 >
                   📸
@@ -280,15 +288,15 @@ const CaseStudies = () => {
               )}
               <button 
                 onClick={() => setActiveCaseStudy(null)}
-                className="absolute top-4 right-4 bg-white text-gray-800 p-2 rounded-full shadow-md hover:bg-gray-100"
+                className="absolute top-3 right-3 sm:top-4 sm:right-4 bg-white text-gray-800 p-2 rounded-full shadow-md hover:bg-gray-100 transition-colors"
               >
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
                 </svg>
               </button>
             </div>
             
-            <div className="p-6 md:p-8">
+            <div className="p-4 sm:p-6 lg:p-8">
               <div className="flex flex-wrap gap-2 mb-4">
                 <span 
                   className="text-white text-sm font-medium px-3 py-1 rounded-full"
