@@ -110,10 +110,11 @@ const SparkzHero = () => {
     <div 
       id="home"
       ref={heroRef}
-      className="min-h-screen bg-gradient-to-b from-gray-50 to-white flex items-center justify-center px-6 sm:px-6 relative overflow-hidden"
+      className="min-h-screen bg-gradient-to-b from-gray-50 to-white flex items-center justify-center px-4 sm:px-6 lg:px-8 relative overflow-hidden"
       style={{ 
         fontFamily: "'Montserrat', sans-serif", 
-        paddingTop: 'clamp(8rem, 12vh, 10rem)' 
+        paddingTop: 'clamp(6rem, 15vh, 10rem)',
+        minHeight: '100dvh' // Use dynamic viewport height for mobile
       }}
       role="banner"
       aria-label="Main hero section"
@@ -287,14 +288,14 @@ const SparkzHero = () => {
       )}
 
       {/* Main content */}
-      <div className="text-center max-w-5xl mx-auto relative z-10 w-full mt-4 sm:mt-8 px-4">
+      <div className="text-center max-w-5xl mx-auto relative z-10 w-full mt-4 sm:mt-6 lg:mt-8 px-2 sm:px-4">
         {/* Classic Typography with enhanced animation */}
         {animationStage >= 3 && (
-          <div className="space-y-8 sm:space-y-6">
+          <div className="space-y-6 sm:space-y-8">
             {/* Main Headline with sequential reveal */}
-            <div className="overflow-hidden mb-6">
+            <div className="overflow-hidden mb-4 sm:mb-6">
               <h1 
-                className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-normal text-gray-900 leading-tight"
+                className="text-responsive-4xl sm:text-responsive-5xl lg:text-responsive-6xl font-normal text-gray-900 leading-tight"
                 style={{ 
                   fontWeight: 600,
                   letterSpacing: '-0.02em',
@@ -302,7 +303,7 @@ const SparkzHero = () => {
                 }}
               >
                 <span 
-                  className="block opacity-0 mb-2 sm:mb-0"
+                  className="block opacity-0 mb-2 sm:mb-3"
                   style={{ animation: 'fadeInUp 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.3s forwards' }}
                 >
                   Strategic Growth
@@ -321,37 +322,37 @@ const SparkzHero = () => {
 
             {/* Punchy tagline */}
             <div 
-              className="max-w-3xl mx-auto opacity-0 mb-6 sm:mb-4"
+              className="max-w-3xl mx-auto opacity-0 mb-4 sm:mb-6"
               style={{ animation: 'fadeIn 1s ease-out 0.9s forwards' }}
             >
-              <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-medium text-purple-700 mb-6 leading-relaxed px-2">
+              <h2 className="text-responsive-lg sm:text-responsive-xl lg:text-responsive-2xl font-medium text-purple-700 mb-4 sm:mb-6 leading-relaxed px-2">
                 Transforming Digital Presence into Market Leadership
               </h2>
             </div>
 
             {/* Enhanced divider with animation */}
             <div 
-              className="flex justify-center opacity-0 my-8 sm:my-6"
+              className="flex justify-center opacity-0 my-6 sm:my-8"
               style={{ animation: 'fadeIn 1s ease-out 1.2s forwards' }}
             >
               <div 
-                className="w-16 sm:w-24 h-px bg-gray-300 mx-4 mt-8 mb-6 opacity-0"
+                className="w-12 sm:w-16 lg:w-24 h-px bg-gray-300 mx-4 mt-6 sm:mt-8 mb-4 sm:mb-6 opacity-0"
                 style={{ animation: 'scaleXIn 0.8s ease-out 1.4s forwards' }}
               ></div>
               <div 
-                className="w-2 h-2 bg-gray-400 rounded-full mt-7.5 mx-1 opacity-0"
+                className="w-2 h-2 bg-gray-400 rounded-full mt-5.5 sm:mt-7.5 mx-1 opacity-0"
                 style={{ animation: 'fadeIn 0.6s ease-out 1.6s forwards' }}
               ></div>
               <div 
-                className="w-16 sm:w-24 h-px bg-gray-300 mx-4 mt-8 mb-6 opacity-0"
+                className="w-12 sm:w-16 lg:w-24 h-px bg-gray-300 mx-4 mt-6 sm:mt-8 mb-4 sm:mb-6 opacity-0"
                 style={{ animation: 'scaleXIn 0.8s ease-out 1.4s forwards' }}
               ></div>
             </div>
 
             {/* Enhanced value proposition with word-by-word reveal */}
-            <div className="max-w-3xl mx-auto mb-8 sm:mb-6">
+            <div className="max-w-3xl mx-auto mb-6 sm:mb-8">
               <p 
-                className="text-lg sm:text-xl md:text-2xl text-gray-600 leading-relaxed px-4"
+                className="text-responsive-base sm:text-responsive-lg lg:text-responsive-xl text-gray-600 leading-relaxed px-2 sm:px-4"
                 style={{ 
                   fontWeight: 400,
                   lineHeight: '1.7'
@@ -367,10 +368,24 @@ const SparkzHero = () => {
 
             {/* Enhanced Call-to-Action with staggered animation */}
             <div 
-              className="mt-12 sm:mt-8 flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-6 lg:space-x-8 px-4"
+              className="mt-8 sm:mt-12 flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-4 lg:space-x-6 px-2 sm:px-4"
             >
-              <button 
-                className="group w-full sm:w-auto px-8 sm:px-10 py-4 text-white font-medium tracking-wide uppercase text-sm border-2 transition-all duration-300 hover:bg-white relative overflow-hidden opacity-0"
+              <a
+                href="#contact"
+                onClick={(e) => {
+                  e.preventDefault();
+                  const element = document.getElementById('contact');
+                  if (element) {
+                    const offset = 80;
+                    const elementPosition = element.offsetTop;
+                    const offsetPosition = elementPosition - offset;
+                    window.scrollTo({
+                      top: offsetPosition,
+                      behavior: 'smooth'
+                    });
+                  }
+                }}
+                className="group w-full sm:w-auto px-6 sm:px-8 lg:px-10 py-3 sm:py-4 text-white font-medium tracking-wide uppercase text-sm border-2 transition-all duration-300 hover:bg-white relative overflow-hidden opacity-0 interactive inline-block text-center"
                 style={{ 
                   letterSpacing: '1px',
                   animation: 'fadeInUp 1s ease-out 2.9s forwards',
@@ -397,10 +412,24 @@ const SparkzHero = () => {
               >
                 <span className="relative z-10 group-hover:text-[#64419a] transition-colors duration-300">Start a Project</span>
                 <div className="absolute inset-0 bg-white transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" aria-hidden="true"></div>
-              </button>
+              </a>
               
-              <button 
-                className="group w-full sm:w-auto px-8 sm:px-10 py-4 bg-transparent text-gray-900 font-medium tracking-wide uppercase text-sm border-2 border-gray-300 transition-all duration-300 hover:border-[#64419a] relative opacity-0"
+              <a
+                href="#contact"
+                onClick={(e) => {
+                  e.preventDefault();
+                  const element = document.getElementById('contact');
+                  if (element) {
+                    const offset = 80;
+                    const elementPosition = element.offsetTop;
+                    const offsetPosition = elementPosition - offset;
+                    window.scrollTo({
+                      top: offsetPosition,
+                      behavior: 'smooth'
+                    });
+                  }
+                }}
+                className="group w-full sm:w-auto px-6 sm:px-8 lg:px-10 py-3 sm:py-4 bg-transparent text-gray-900 font-medium tracking-wide uppercase text-sm border-2 border-gray-300 transition-all duration-300 hover:border-[#64419a] relative opacity-0 interactive inline-block text-center"
                 style={{ 
                   letterSpacing: '1px',
                   animation: 'fadeInUp 1s ease-out 3.1s forwards',
@@ -424,25 +453,25 @@ const SparkzHero = () => {
                 aria-label="Book a consultation call with our team"
               >
                 <span className="relative z-10 group-hover:text-[#64419a] transition-colors duration-300">Book a Call</span>
-              </button>
+              </a>
             </div>
 
             {/* Enhanced trust indicators with subtle animation */}
             <div 
-              className="mt-16 opacity-0"
+              className="mt-12 sm:mt-16 opacity-0"
               style={{ animation: 'fadeIn 1s ease-out 3.5s forwards' }}
             >
               <p 
-                className="text-sm text-gray-500 uppercase tracking-wider font-medium mb-6"
+                className="text-xs sm:text-sm text-gray-500 uppercase tracking-wider font-medium mb-4 sm:mb-6"
                 style={{ letterSpacing: '2px' }}
               >
                 Trusted by Industry Leaders
               </p>
-              <div className="flex justify-center items-center space-x-8 opacity-60">
+              <div className="flex justify-center items-center space-x-4 sm:space-x-6 lg:space-x-8 opacity-60 overflow-x-auto pb-2">
                 {[1, 2, 3, 4].map((item, index) => (
                   <div 
                     key={index}
-                    className="w-24 h-8 bg-gradient-to-r from-gray-200 to-gray-300 rounded-md opacity-60 hover:opacity-100 transition-all duration-300 hover:scale-105"
+                    className="w-16 sm:w-20 lg:w-24 h-6 sm:h-8 bg-gradient-to-r from-gray-200 to-gray-300 rounded-md opacity-60 hover:opacity-100 transition-all duration-300 hover:scale-105 flex-shrink-0"
                     style={{
                       animation: `fadeIn 0.6s ease-out ${3.8 + index * 0.2}s forwards`
                     }}
@@ -867,67 +896,117 @@ const SparkzHero = () => {
 
         /* Mobile-specific styles */
         @media (max-width: 768px) {
-          .text-4xl {
-            font-size: 2.5rem;
+          .text-responsive-4xl {
+            font-size: 2rem;
             line-height: 1.1;
           }
           
-          .text-lg {
+          .text-responsive-lg {
             font-size: 1.1rem;
             line-height: 1.6;
           }
           
-          .px-8 {
-            padding-left: 1.5rem;
-            padding-right: 1.5rem;
+          .px-6 {
+            padding-left: 1rem;
+            padding-right: 1rem;
           }
           
-          .space-y-8 > * + * {
+          .py-3 {
+            padding-top: 0.75rem;
+            padding-bottom: 0.75rem;
+          }
+          
+          .space-y-6 > * + * {
             margin-top: 1.5rem;
           }
           
-          .mb-6 {
+          .mb-4 {
             margin-bottom: 1rem;
           }
           
-          .mt-12 {
+          .mt-8 {
             margin-top: 2rem;
           }
           
           /* Ensure enough space for mobile navbar */
           [role="banner"] {
             padding-top: 7rem !important;
+            min-height: 100dvh; /* Dynamic viewport height */
+          }
+          
+          /* Touch-friendly button sizes */
+          button {
+            min-height: 48px;
+            min-width: 120px;
+          }
+          
+          /* Prevent horizontal scroll */
+          .overflow-x-auto {
+            -webkit-overflow-scrolling: touch;
+          }
+          
+          /* Better text spacing on mobile */
+          .leading-relaxed {
+            line-height: 1.6;
           }
         }
         
         @media (max-width: 480px) {
-          .text-4xl {
-            font-size: 2rem;
+          .text-responsive-4xl {
+            font-size: 1.75rem;
             line-height: 1.2;
           }
           
-          .text-lg {
+          .text-responsive-lg {
             font-size: 1rem;
             line-height: 1.5;
           }
           
           .px-4 {
-            padding-left: 1rem;
-            padding-right: 1rem;
+            padding-left: 0.75rem;
+            padding-right: 0.75rem;
           }
           
-          .py-4 {
-            padding-top: 0.875rem;
-            padding-bottom: 0.875rem;
+          .py-3 {
+            padding-top: 0.75rem;
+            padding-bottom: 0.75rem;
           }
           
-          .space-y-8 > * + * {
+          .space-y-6 > * + * {
             margin-top: 1rem;
           }
           
           /* Smaller padding for very small screens */
           [role="banner"] {
             padding-top: 6rem !important;
+            padding-left: 1rem;
+            padding-right: 1rem;
+          }
+          
+          /* More compact layout */
+          .mb-4 {
+            margin-bottom: 0.75rem;
+          }
+          
+          .mt-8 {
+            margin-top: 1.5rem;
+          }
+          
+          /* Stack trust indicators better */
+          .space-x-4 > * + * {
+            margin-left: 0.75rem;
+          }
+        }
+        
+        /* Landscape mobile adjustments */
+        @media (max-width: 768px) and (orientation: landscape) {
+          [role="banner"] {
+            padding-top: 4rem !important;
+            min-height: 100vh;
+          }
+          
+          .space-y-6 > * + * {
+            margin-top: 1rem;
           }
         }
       `}</style>
