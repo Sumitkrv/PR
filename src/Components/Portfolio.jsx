@@ -17,14 +17,16 @@ const CaseStudies = () => {
       challenge: "Create stunning visual content for high-end jewelry collection launch targeting affluent customers.",
       approach: "Conceptualized and executed premium jewelry photography with dramatic lighting, elegant styling, and sophisticated composition to showcase craftsmanship.",
       results: [
-        { metric: "45%", description: "increase in online engagement" },
+        { metric: "68%", description: "boost in premium collection sales", highlight: true },
         { metric: "3.2M+", description: "social media impressions" },
-        { metric: "68%", description: "boost in premium collection sales" }
+        { metric: "45%", description: "increase in online engagement" }
       ],
-      image: "", // Image placeholder - Add jewelry photo shoot image here
+      image: "", 
       category: "Jewelry Photography",
       duration: "2 months",
-      highlight: true
+      highlight: true,
+      gradientColors: ["#FFD700", "#FFA500", "#FF6B35"],
+      icon: "💎"
     },
     {
       id: 2,
@@ -33,14 +35,16 @@ const CaseStudies = () => {
       challenge: "Maximize brand visibility and prestige during Cannes Film Festival through strategic celebrity partnerships.",
       approach: "Orchestrated comprehensive Cannes coverage with celebrity styling, red carpet moments, and exclusive behind-the-scenes content creation.",
       results: [
-        { metric: "15M", description: "global media reach" },
+        { metric: "15M", description: "global media reach", highlight: true },
         { metric: "2.8M", description: "social media engagements" },
         { metric: "5", description: "A-list celebrity collaborations" }
       ],
-      image: "", // Image placeholder - Add Cannes festival image here
+      image: "", 
       category: "Cannes Festival",
       duration: "1 month",
-      highlight: true
+      highlight: true,
+      gradientColors: ["#FF6B6B", "#4ECDC4", "#45B7D1"],
+      icon: "🎬"
     },
     {
       id: 3,
@@ -49,14 +53,16 @@ const CaseStudies = () => {
       challenge: "Establish authentic celebrity partnerships to elevate brand prestige and reach new demographics.",
       approach: "Curated strategic celebrity collaborations with genuine brand alignment, creating authentic content and memorable brand moments.",
       results: [
+        { metric: "₹12Cr", description: "earned media value", highlight: true },
         { metric: "250%", description: "increase in brand mentions" },
-        { metric: "₹12Cr", description: "earned media value" },
         { metric: "38%", description: "growth in target demographic reach" }
       ],
-      image: "", // Image placeholder - Add celebrity collaboration image here
+      image: "", 
       category: "Celebrity Partnership",
       duration: "4 months",
-      highlight: true
+      highlight: true,
+      gradientColors: ["#667eea", "#764ba2", "#f093fb"],
+      icon: "⭐"
     },
     {
       id: 4,
@@ -65,14 +71,16 @@ const CaseStudies = () => {
       challenge: "Create compelling commercial photography that drives both online and in-store sales across multiple product categories.",
       approach: "Developed comprehensive commercial photography strategy with lifestyle integration, model casting, and multi-channel content optimization.",
       results: [
-        { metric: "52%", description: "increase in product page conversions" },
+        { metric: "52%", description: "increase in product page conversions", highlight: true },
         { metric: "4.1M", description: "content views across platforms" },
         { metric: "31%", description: "improvement in campaign ROI" }
       ],
-      image: "", // Image placeholder - Add commercial photography image here
+      image: "", 
       category: "Commercial Photography",
       duration: "3 months",
-      highlight: false
+      highlight: false,
+      gradientColors: ["#a8edea", "#fed6e3", "#d299c2"],
+      icon: "📸"
     }
   ];
 
@@ -121,95 +129,165 @@ const CaseStudies = () => {
               }}
             >
               {/* Image Section - Mobile Optimized */}
-              <div className="relative overflow-hidden h-48 sm:h-56 lg:h-64">
+              <div className="relative overflow-hidden h-48 sm:h-56 lg:h-64 group">
                 {study.image ? (
                   <img 
                     src={study.image} 
                     alt={study.title}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                     loading="lazy"
                   />
                 ) : (
                   <div 
-                    className="w-full h-full flex items-center justify-center text-white text-4xl sm:text-5xl lg:text-6xl font-bold"
-                    style={{ background: 'linear-gradient(135deg, #8666A5 0%, #6b4d7a 100%)' }}
+                    className="w-full h-full flex items-center justify-center text-white relative overflow-hidden"
+                    style={{ 
+                      background: `linear-gradient(135deg, ${study.gradientColors[0]} 0%, ${study.gradientColors[1]} 50%, ${study.gradientColors[2]} 100%)`,
+                      position: 'relative'
+                    }}
                   >
-                    📸
+                    {/* Pattern overlay for texture */}
+                    <div 
+                      className="absolute inset-0 opacity-10"
+                      style={{
+                        backgroundImage: `radial-gradient(circle at 2px 2px, rgba(255,255,255,0.3) 1px, transparent 0)`,
+                        backgroundSize: '20px 20px'
+                      }}
+                    ></div>
+                    
+                    {/* Main icon */}
+                    <div className="text-4xl sm:text-5xl lg:text-6xl font-bold relative z-10">
+                      {study.icon}
+                    </div>
+                    
+                    {/* Floating elements for visual interest */}
+                    <div className="absolute top-4 right-4 text-2xl opacity-30 animate-pulse">
+                      {study.icon}
+                    </div>
+                    <div className="absolute bottom-4 left-4 text-xl opacity-20 animate-bounce">
+                      {study.icon}
+                    </div>
+                    
+                    {/* Overlay for better text readability */}
+                    <div className="absolute inset-0 bg-black bg-opacity-20"></div>
                   </div>
                 )}
+                
+                {/* Featured badge */}
                 {study.highlight && (
                   <div 
-                    className="absolute top-3 left-3 sm:top-4 sm:left-4 text-white text-xs font-bold px-2 py-1 sm:px-3 sm:py-1 rounded-full"
-                    style={{ backgroundColor: '#8666A5' }}
+                    className="absolute top-3 left-3 sm:top-4 sm:left-4 text-white text-xs font-bold px-2 py-1 sm:px-3 sm:py-1 rounded-full backdrop-blur-sm"
+                    style={{ backgroundColor: 'rgba(134, 102, 165, 0.9)' }}
                   >
-                    Featured Results
+                    ⭐ Featured Project
                   </div>
                 )}
+                
+                {/* Client badge */}
                 <div 
-                  className="absolute bottom-3 left-3 sm:bottom-4 sm:left-4 text-white text-xs sm:text-sm font-medium px-2 py-1 sm:px-3 sm:py-1 rounded-full"
-                  style={{ backgroundColor: '#8666A5' }}
+                  className="absolute bottom-3 left-3 sm:bottom-4 sm:left-4 text-white text-xs sm:text-sm font-medium px-2 py-1 sm:px-3 sm:py-1 rounded-full backdrop-blur-sm"
+                  style={{ backgroundColor: 'rgba(0, 0, 0, 0.7)' }}
                 >
                   {study.client}
                 </div>
+                
+                {/* Hover overlay */}
+                <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-300 flex items-center justify-center">
+                  <div className="text-white font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-center px-4">
+                    <div className="text-sm">Click to view details</div>
+                    <div className="text-xs mt-1 opacity-80">{study.category}</div>
+                  </div>
+                </div>
               </div>
               
-              {/* Content Section - Mobile Optimized */}
+              {/* Content Section - Mobile Optimized with Results-First Layout */}
               <div className="p-4 sm:p-6">
+                {/* Header with title and category */}
                 <div className="flex justify-between items-start mb-3 sm:mb-4">
-                  <h3 className="text-lg sm:text-xl font-bold text-gray-800 leading-tight pr-2">{study.title}</h3>
+                  <div className="flex-1 pr-2">
+                    <div className="mb-2">
+                      <span 
+                        className="text-xs sm:text-sm font-semibold text-white px-2 py-1 sm:px-2.5 sm:py-1 rounded-full"
+                        style={{ backgroundColor: 'rgba(134, 102, 165, 0.8)' }}
+                      >
+                        {study.category}
+                      </span>
+                    </div>
+                    <h3 className="text-lg sm:text-xl font-bold text-gray-800 leading-tight">{study.title}</h3>
+                  </div>
                   <span className="bg-gray-100 text-gray-600 text-xs font-medium px-2 py-1 sm:px-2.5 sm:py-1 rounded flex-shrink-0">
                     {study.duration}
                   </span>
                 </div>
                 
-                <div className="mb-3 sm:mb-4">
-                  <span 
-                    className="text-xs sm:text-sm font-semibold text-white px-2 py-1 sm:px-2.5 sm:py-1 rounded"
-                    style={{ backgroundColor: 'rgba(134, 102, 165, 0.8)' }}
-                  >
-                    {study.category}
-                  </span>
-                </div>
-                
+                {/* Challenge summary - brief */}
                 <p className="text-gray-600 mb-4 text-sm sm:text-base leading-relaxed">
-                  <span className="font-semibold">Challenge: </span>
-                  {study.challenge}
+                  <span className="font-semibold text-gray-800">Challenge: </span>
+                  {study.challenge.length > 120 ? study.challenge.substring(0, 120) + '...' : study.challenge}
                 </p>
                 
-                {/* Results Grid - Mobile Optimized */}
-                <div className="grid grid-cols-3 gap-2 sm:gap-4 mb-4 sm:mb-6">
-                  {study.results.map((result, i) => (
-                    <div 
-                      key={i} 
-                      className="text-center p-2 sm:p-3 rounded-lg"
-                      style={{ backgroundColor: 'rgba(134, 102, 165, 0.05)' }}
-                    >
-                      <div 
-                        className="text-lg sm:text-xl font-bold"
-                        style={{ color: '#8666A5' }}
-                      >{result.metric}</div>
-                      <div className="text-xs text-gray-600 mt-1 leading-tight">{result.description}</div>
+                {/* Results Grid - Mobile Optimized with Enhanced Impact */}
+                <div className="mb-4 sm:mb-6">
+                  {/* Primary impact metric - highlighted */}
+                  <div 
+                    className="p-3 sm:p-4 rounded-xl mb-3 text-center"
+                    style={{ 
+                      background: 'linear-gradient(135deg, rgba(134, 102, 165, 0.1) 0%, rgba(134, 102, 165, 0.2) 100%)',
+                      border: '2px solid rgba(134, 102, 165, 0.3)'
+                    }}
+                  >
+                    <div className="flex items-center justify-center mb-2">
+                      <span className="text-xs font-semibold text-gray-600 mr-2">KEY IMPACT</span>
+                      <div className="w-4 h-4 rounded-full" style={{ backgroundColor: '#8666A5' }}></div>
                     </div>
-                  ))}
+                    <div 
+                      className="text-2xl sm:text-3xl font-bold mb-1"
+                      style={{ color: '#8666A5' }}
+                    >
+                      {study.results.find(r => r.highlight)?.metric || study.results[0].metric}
+                    </div>
+                    <div className="text-sm font-medium text-gray-700">
+                      {study.results.find(r => r.highlight)?.description || study.results[0].description}
+                    </div>
+                  </div>
+                  
+                  {/* Secondary metrics */}
+                  <div className="grid grid-cols-2 gap-3">
+                    {study.results.filter(r => !r.highlight).map((result, i) => (
+                      <div 
+                        key={i} 
+                        className="text-center p-2 sm:p-3 rounded-lg"
+                        style={{ backgroundColor: 'rgba(134, 102, 165, 0.05)' }}
+                      >
+                        <div 
+                          className="text-lg sm:text-xl font-bold"
+                          style={{ color: '#8666A5' }}
+                        >{result.metric}</div>
+                        <div className="text-xs text-gray-600 mt-1 leading-tight">{result.description}</div>
+                      </div>
+                    ))}
+                  </div>
                 </div>
                 
                 <button 
                   onClick={() => setActiveCaseStudy(study)}
-                  className="w-full font-medium py-2 sm:py-2.5 rounded-lg transition-all duration-300 flex items-center justify-center text-sm sm:text-base"
+                  className="w-full font-medium py-3 sm:py-3.5 rounded-lg transition-all duration-300 flex items-center justify-center text-sm sm:text-base group hover:transform hover:scale-[1.02] shadow-lg hover:shadow-xl"
                   style={{ 
-                    background: 'linear-gradient(135deg, rgba(134, 102, 165, 0.1) 0%, rgba(134, 102, 165, 0.2) 100%)',
-                    color: '#8666A5'
+                    background: 'linear-gradient(135deg, rgba(134, 102, 165, 0.9) 0%, rgba(134, 102, 165, 1) 100%)',
+                    color: 'white',
+                    boxShadow: '0 4px 15px rgba(134, 102, 165, 0.2)'
                   }}
                   onMouseEnter={(e) => {
-                    e.target.style.background = 'linear-gradient(135deg, rgba(134, 102, 165, 0.2) 0%, rgba(134, 102, 165, 0.3) 100%)';
+                    e.target.style.background = 'linear-gradient(135deg, rgba(107, 77, 122, 0.9) 0%, rgba(107, 77, 122, 1) 100%)';
+                    e.target.style.boxShadow = '0 8px 25px rgba(134, 102, 165, 0.4)';
                   }}
                   onMouseLeave={(e) => {
-                    e.target.style.background = 'linear-gradient(135deg, rgba(134, 102, 165, 0.1) 0%, rgba(134, 102, 165, 0.2) 100%)';
+                    e.target.style.background = 'linear-gradient(135deg, rgba(134, 102, 165, 0.9) 0%, rgba(134, 102, 165, 1) 100%)';
+                    e.target.style.boxShadow = '0 4px 15px rgba(134, 102, 165, 0.2)';
                   }}
                 >
-                  View Detailed Case Study
-                  <svg className="w-3 h-3 sm:w-4 sm:h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7"></path>
+                  <span className="mr-2">View Full Case Study</span>
+                  <svg className="w-4 h-4 sm:w-5 sm:h-5 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
                   </svg>
                 </button>
               </div>
@@ -267,10 +345,10 @@ const CaseStudies = () => {
         </div>
       </div>
 
-      {/* Case Study Modal - Mobile Optimized */}
+      {/* Case Study Modal - Mobile Optimized with Enhanced Visuals */}
       {activeCaseStudy && (
-        <div className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center p-4 z-50">
-          <div className="bg-white rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+        <div className="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center p-4 z-50 backdrop-blur-sm">
+          <div className="bg-white rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto shadow-2xl">
             <div className="relative h-48 sm:h-64 lg:h-80">
               {activeCaseStudy.image ? (
                 <img 
@@ -280,15 +358,36 @@ const CaseStudies = () => {
                 />
               ) : (
                 <div 
-                  className="w-full h-full flex items-center justify-center text-white text-6xl sm:text-7xl lg:text-8xl"
-                  style={{ background: 'linear-gradient(135deg, #8666A5 0%, #6b4d7a 100%)' }}
+                  className="w-full h-full flex items-center justify-center text-white relative overflow-hidden"
+                  style={{ 
+                    background: `linear-gradient(135deg, ${activeCaseStudy.gradientColors[0]} 0%, ${activeCaseStudy.gradientColors[1]} 50%, ${activeCaseStudy.gradientColors[2]} 100%)`
+                  }}
                 >
-                  📸
+                  {/* Pattern overlay for texture */}
+                  <div 
+                    className="absolute inset-0 opacity-10"
+                    style={{
+                      backgroundImage: `radial-gradient(circle at 2px 2px, rgba(255,255,255,0.3) 1px, transparent 0)`,
+                      backgroundSize: '20px 20px'
+                    }}
+                  ></div>
+                  
+                  <div className="text-6xl sm:text-7xl lg:text-8xl relative z-10">
+                    {activeCaseStudy.icon}
+                  </div>
+                  
+                  {/* Floating elements */}
+                  <div className="absolute top-6 right-6 text-3xl opacity-20 animate-pulse">
+                    {activeCaseStudy.icon}
+                  </div>
+                  <div className="absolute bottom-6 left-6 text-2xl opacity-20 animate-bounce">
+                    {activeCaseStudy.icon}
+                  </div>
                 </div>
               )}
               <button 
                 onClick={() => setActiveCaseStudy(null)}
-                className="absolute top-3 right-3 sm:top-4 sm:right-4 bg-white text-gray-800 p-2 rounded-full shadow-md hover:bg-gray-100 transition-colors"
+                className="absolute top-3 right-3 sm:top-4 sm:right-4 bg-white text-gray-800 p-2 rounded-full shadow-lg hover:bg-gray-100 transition-colors hover:shadow-xl"
               >
                 <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
@@ -326,8 +425,33 @@ const CaseStudies = () => {
               
               <div className="mb-6">
                 <h4 className="text-lg font-semibold text-gray-800 mb-4">Results Delivered</h4>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  {activeCaseStudy.results.map((result, i) => (
+                
+                {/* Highlight primary result */}
+                <div 
+                  className="p-4 rounded-xl mb-4 text-center"
+                  style={{ 
+                    background: 'linear-gradient(135deg, rgba(134, 102, 165, 0.1) 0%, rgba(134, 102, 165, 0.2) 100%)',
+                    border: '2px solid rgba(134, 102, 165, 0.3)'
+                  }}
+                >
+                  <div className="flex items-center justify-center mb-2">
+                    <span className="text-sm font-semibold text-gray-600 mr-2">PRIMARY IMPACT</span>
+                    <div className="w-4 h-4 rounded-full" style={{ backgroundColor: '#8666A5' }}></div>
+                  </div>
+                  <div 
+                    className="text-3xl font-bold mb-2"
+                    style={{ color: '#8666A5' }}
+                  >
+                    {activeCaseStudy.results.find(r => r.highlight)?.metric || activeCaseStudy.results[0].metric}
+                  </div>
+                  <div className="text-base font-medium text-gray-700">
+                    {activeCaseStudy.results.find(r => r.highlight)?.description || activeCaseStudy.results[0].description}
+                  </div>
+                </div>
+                
+                {/* Secondary results */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {activeCaseStudy.results.filter(r => !r.highlight).map((result, i) => (
                     <div 
                       key={i} 
                       className="p-4 rounded-lg text-center"

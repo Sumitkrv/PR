@@ -149,7 +149,7 @@ const ContactForm = () => {
                   </div>
                   <div>
                     <h4 className="font-semibold text-gray-900">Email Us</h4>
-                    <p className="text-gray-600">hello@prsocial.com</p>
+                    <p className="text-gray-600">Info@prsparkz.com</p>
                   </div>
                 </motion.div>
                 
@@ -166,7 +166,7 @@ const ContactForm = () => {
                   </div>
                   <div>
                     <h4 className="font-semibold text-gray-900">Call Us</h4>
-                    <p className="text-gray-600">+1 (555) 123-4567</p>
+                    <p className="text-gray-600">+91 7738715711</p>
                   </div>
                 </motion.div>
                 
@@ -182,16 +182,18 @@ const ContactForm = () => {
                     <span className="text-2xl text-purple-600">💬</span>
                   </div>
                   <div>
-                    <h4 className="font-semibold text-gray-900">Social Media</h4>
+                    <h4 className="font-semibold text-gray-900">Let's Be Social</h4>
                     <div className="flex space-x-4 mt-2">
                       {[
-                        { name: 'Instagram', icon: '📸' },
-                        { name: 'Twitter', icon: '🐦' },
-                        { name: 'LinkedIn', icon: '💼' }
+                        { name: 'Instagram', icon: '�', url: 'https://www.instagram.com/pr_sparkz?igsh=MTZtbm01cnZ6a3V0Zw==' },
+                        { name: 'Facebook', icon: '�', url: 'https://www.facebook.com/share/1B4DSMKMXw/?mibextid=wwXIfr' },
+                        { name: 'LinkedIn', icon: '�', url: 'https://www.linkedin.com/company/prsparkz/' }
                       ].map((platform) => (
                         <motion.a
                           key={platform.name}
-                          href="#"
+                          href={platform.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
                           className="w-10 h-10 rounded-full flex items-center justify-center transition-colors bg-purple-100 text-purple-600"
                           whileHover={{ 
                             y: -3,
@@ -359,7 +361,7 @@ const ContactForm = () => {
 
                 <div className="relative">
                   <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
-                    Your Message
+                    Project Needs
                   </label>
                   <div className="relative">
                     <motion.textarea
@@ -370,7 +372,7 @@ const ContactForm = () => {
                       onFocus={() => handleFocus('message')}
                       onBlur={() => handleBlur('message')}
                       className="w-full border border-purple-200 p-4 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all min-h-[120px] bg-white text-gray-900 placeholder-gray-400 shadow-sm"
-                      placeholder="Tell us about your project or inquiry..."
+                      placeholder="Tell us about your project requirements and goals..."
                       required
                       whileFocus={{ scale: 1.01 }}
                     />
