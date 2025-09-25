@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 const CaseStudies = () => {
   const [activeCaseStudy, setActiveCaseStudy] = useState(null);
   const [isVisible, setIsVisible] = useState(false);
+  const [selectedGalleryImage, setSelectedGalleryImage] = useState(0);
   
   useEffect(() => {
     setIsVisible(true);
@@ -21,8 +22,21 @@ const CaseStudies = () => {
         { metric: "3.2M+", description: "social media impressions" },
         { metric: "68%", description: "boost in premium collection sales" }
       ],
-      image: "", // Image placeholder - Add jewelry photo shoot image here
+      image: "/images/portfolio/jewelry/image32.jpeg", // Main jewelry campaign image
       category: "Jewelry Photography",
+      gallery: [
+        "/images/portfolio/jewelry/image29.jpeg",
+        "/images/portfolio/jewelry/image30.jpeg",
+        "/images/portfolio/jewelry/image31.jpeg",
+        "/images/portfolio/jewelry/image32.jpeg",
+        "/images/portfolio/jewelry/image33.jpeg",
+        "/images/portfolio/jewelry/image34.jpeg",
+        "/images/portfolio/jewelry/image35.jpeg",
+        "/images/portfolio/jewelry/image36.jpeg",
+        "/images/portfolio/jewelry/image37.jpeg",
+        "/images/portfolio/jewelry/image38.jpeg",
+        "/images/portfolio/jewelry/image39.jpeg"
+      ],
       duration: "2 months",
       highlight: true
     },
@@ -37,8 +51,15 @@ const CaseStudies = () => {
         { metric: "2.8M", description: "social media engagements" },
         { metric: "5", description: "A-list celebrity collaborations" }
       ],
-      image: "", // Image placeholder - Add Cannes festival image here
+      image: "/images/portfolio/cannes/image45.jpeg", // Main Cannes festival image
       category: "Cannes Festival",
+      gallery: [
+        "/images/portfolio/cannes/image43.jpeg",
+        "/images/portfolio/cannes/image44.jpeg",
+        "/images/portfolio/cannes/image45.jpeg",
+        "/images/portfolio/cannes/image46.jpeg",
+        "/images/portfolio/cannes/image47.jpeg"
+      ],
       duration: "1 month",
       highlight: true
     },
@@ -53,8 +74,14 @@ const CaseStudies = () => {
         { metric: "₹12Cr", description: "earned media value" },
         { metric: "38%", description: "growth in target demographic reach" }
       ],
-      image: "", // Image placeholder - Add celebrity collaboration image here
+      image: "/images/portfolio/celebrity/image49.jpeg", // Main celebrity collaboration image
       category: "Celebrity Partnership",
+      gallery: [
+        "/images/portfolio/celebrity/image48.jpeg",
+        "/images/portfolio/celebrity/image49.jpeg",
+        "/images/portfolio/celebrity/image50.jpeg",
+        "/images/portfolio/celebrity/image51.jpeg"
+      ],
       duration: "4 months",
       highlight: true
     },
@@ -69,8 +96,19 @@ const CaseStudies = () => {
         { metric: "4.1M", description: "content views across platforms" },
         { metric: "31%", description: "improvement in campaign ROI" }
       ],
-      image: "", // Image placeholder - Add commercial photography image here
+      image: "/images/portfolio/commercial/image66.png", // Main commercial photography image
       category: "Commercial Photography",
+      gallery: [
+        "/images/portfolio/commercial/image64.png",
+        "/images/portfolio/commercial/image65.png",
+        "/images/portfolio/commercial/image66.png",
+        "/images/portfolio/commercial/image67.png",
+        "/images/portfolio/commercial/image68.png",
+        "/images/portfolio/commercial/image69.png",
+        "/images/portfolio/commercial/image70.jpeg",
+        "/images/portfolio/commercial/image71.jpeg",
+        "/images/portfolio/commercial/image72.jpeg"
+      ],
       duration: "3 months",
       highlight: false
     }
@@ -81,8 +119,8 @@ const CaseStudies = () => {
       id="case-studies" 
       className="pb-12 sm:pb-16 lg:pb-20 relative overflow-hidden" 
       style={{ 
-        paddingTop: 'clamp(5rem, 10vh, 7rem)', 
-        scrollMarginTop: '120px',
+        paddingTop: 'clamp(7rem, 20vw, 10rem)', // Significantly increased padding top for mobile
+        scrollMarginTop: '100px', // Increased scroll margin for better navigation
         background: 'linear-gradient(135deg, #f8f6ff 0%, #ffffff 100%)'
       }}
     >
@@ -120,23 +158,33 @@ const CaseStudies = () => {
                 willChange: 'transform'
               }}
             >
-              {/* Image Section - Mobile Optimized */}
+              {/* Image Section - Mobile Optimized with proper fitting */}
               <div className="relative overflow-hidden h-48 sm:h-56 lg:h-64">
-                {study.image ? (
-                  <img 
-                    src={study.image} 
-                    alt={study.title}
-                    className="w-full h-full object-cover"
-                    loading="lazy"
-                  />
-                ) : (
+                <div className="w-full h-full flex items-center justify-center bg-gray-100">
+                  {study.image ? (
+                    <img 
+                      src={study.image} 
+                      alt={study.title}
+                      className="w-full h-full object-contain p-2"
+                      loading="lazy"
+                      onError={(e) => {
+                        e.target.style.display = 'none';
+                        e.target.nextSibling.style.display = 'flex';
+                      }}
+                    />
+                  ) : null}
                   <div 
                     className="w-full h-full flex items-center justify-center text-white text-4xl sm:text-5xl lg:text-6xl font-bold"
-                    style={{ background: 'linear-gradient(135deg, #8666A5 0%, #6b4d7a 100%)' }}
+                    style={{ 
+                      background: 'linear-gradient(135deg, #8666A5 0%, #6b4d7a 100%)',
+                      display: study.image || (study.gallery && study.gallery.length > 0) ? 'none' : 'flex'
+                    }}
                   >
-                    📸
+                    {study.category === 'Jewelry Photography' ? '💍' : 
+                     study.category === 'Cannes Festival' ? '🎬' :
+                     study.category === 'Celebrity Partnership' ? '⭐' : '📸'}
                   </div>
-                )}
+                </div>
                 {study.highlight && (
                   <div 
                     className="absolute top-3 left-3 sm:top-4 sm:left-4 text-white text-xs font-bold px-2 py-1 sm:px-3 sm:py-1 rounded-full"
@@ -194,7 +242,10 @@ const CaseStudies = () => {
                 </div>
                 
                 <button 
-                  onClick={() => setActiveCaseStudy(study)}
+                  onClick={() => {
+                    setActiveCaseStudy(study);
+                    setSelectedGalleryImage(0);
+                  }}
                   className="w-full font-medium py-2 sm:py-2.5 rounded-lg transition-all duration-300 flex items-center justify-center text-sm sm:text-base"
                   style={{ 
                     background: 'linear-gradient(135deg, rgba(134, 102, 165, 0.1) 0%, rgba(134, 102, 165, 0.2) 100%)',
@@ -250,6 +301,9 @@ const CaseStudies = () => {
             Let's discuss how our strategic approach can drive measurable growth for your brand.
           </p>
           <button 
+            onClick={() => {
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+            }}
             className="text-white px-6 py-3 sm:px-8 sm:py-3 rounded-xl font-semibold transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 text-sm sm:text-base"
             style={{ 
               background: 'linear-gradient(135deg, #8666A5 0%, #6b4d7a 100%)',
@@ -272,23 +326,70 @@ const CaseStudies = () => {
         <div className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center p-4 z-50">
           <div className="bg-white rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
             <div className="relative h-48 sm:h-64 lg:h-80">
-              {activeCaseStudy.image ? (
-                <img 
-                  src={activeCaseStudy.image} 
-                  alt={activeCaseStudy.title}
-                  className="w-full h-full object-cover"
-                />
-              ) : (
-                <div 
-                  className="w-full h-full flex items-center justify-center text-white text-6xl sm:text-7xl lg:text-8xl"
-                  style={{ background: 'linear-gradient(135deg, #8666A5 0%, #6b4d7a 100%)' }}
-                >
-                  📸
+              {activeCaseStudy.gallery && activeCaseStudy.gallery.length > 0 ? (
+                <div className="relative w-full h-full bg-gray-100">
+                  <div className="w-full h-full flex items-center justify-center">
+                    <img 
+                      src={activeCaseStudy.gallery[selectedGalleryImage]} 
+                      alt={`${activeCaseStudy.title} - Image ${selectedGalleryImage + 1}`}
+                      className="max-w-full max-h-full object-contain p-4"
+                      onError={(e) => {
+                        e.target.style.display = 'none';
+                        e.target.nextSibling.style.display = 'flex';
+                      }}
+                    />
+                  </div>
+                  {activeCaseStudy.gallery.length > 1 && (
+                    <>
+                      <button 
+                        onClick={() => setSelectedGalleryImage(prev => prev > 0 ? prev - 1 : activeCaseStudy.gallery.length - 1)}
+                        className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 rounded-full hover:bg-opacity-70 transition-all z-10"
+                      >
+                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7"></path>
+                        </svg>
+                      </button>
+                      <button 
+                        onClick={() => setSelectedGalleryImage(prev => prev < activeCaseStudy.gallery.length - 1 ? prev + 1 : 0)}
+                        className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 rounded-full hover:bg-opacity-70 transition-all z-10"
+                      >
+                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                      </button>
+                      <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 bg-black bg-opacity-50 text-white px-3 py-1 rounded-full text-sm z-10">
+                        {selectedGalleryImage + 1} / {activeCaseStudy.gallery.length}
+                      </div>
+                    </>
+                  )}
                 </div>
-              )}
+              ) : activeCaseStudy.image ? (
+                <div className="w-full h-full bg-gray-100 flex items-center justify-center">
+                  <img 
+                    src={activeCaseStudy.image} 
+                    alt={activeCaseStudy.title}
+                    className="max-w-full max-h-full object-contain p-4"
+                    onError={(e) => {
+                      e.target.style.display = 'none';
+                      e.target.nextSibling.style.display = 'flex';
+                    }}
+                  />
+                </div>
+              ) : null}
+              <div 
+                className="w-full h-full flex items-center justify-center text-white text-6xl sm:text-7xl lg:text-8xl"
+                style={{ 
+                  background: 'linear-gradient(135deg, #8666A5 0%, #6b4d7a 100%)',
+                  display: (activeCaseStudy.gallery && activeCaseStudy.gallery.length > 0) || activeCaseStudy.image ? 'none' : 'flex'
+                }}
+              >
+                {activeCaseStudy.category === 'Jewelry Photography' ? '💍' : 
+                 activeCaseStudy.category === 'Cannes Festival' ? '🎬' :
+                 activeCaseStudy.category === 'Celebrity Partnership' ? '⭐' : '📸'}
+              </div>
               <button 
                 onClick={() => setActiveCaseStudy(null)}
-                className="absolute top-3 right-3 sm:top-4 sm:right-4 bg-white text-gray-800 p-2 rounded-full shadow-md hover:bg-gray-100 transition-colors"
+                className="absolute top-3 right-3 sm:top-4 sm:right-4 bg-white text-gray-800 p-2 rounded-full shadow-md hover:bg-gray-100 transition-colors z-20"
               >
                 <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
@@ -343,21 +444,41 @@ const CaseStudies = () => {
                 </div>
               </div>
               
-              <div className="border-t border-gray-200 pt-6">
-                <h4 className="text-lg font-semibold text-gray-800 mb-4">Interested in similar results?</h4>
-                <button 
-                  className="text-white px-6 py-2.5 rounded-lg font-medium transition-all duration-300"
-                  style={{ background: 'linear-gradient(135deg, #8666A5 0%, #6b4d7a 100%)' }}
-                  onMouseEnter={(e) => {
-                    e.target.style.background = 'linear-gradient(135deg, #6b4d7a 0%, #5a3f68 100%)';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.target.style.background = 'linear-gradient(135deg, #8666A5 0%, #6b4d7a 100%)';
-                  }}
-                >
-                  Contact Our Team
-                </button>
-              </div>
+              {/* Gallery Thumbnails */}
+              {activeCaseStudy.gallery && activeCaseStudy.gallery.length > 0 && (
+                <div className="mb-6">
+                  <h4 className="text-lg font-semibold text-gray-800 mb-4">Photo Gallery ({activeCaseStudy.gallery.length} images)</h4>
+                  <div className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 gap-2">
+                    {activeCaseStudy.gallery.map((image, index) => (
+                      <button
+                        key={index}
+                        onClick={() => setSelectedGalleryImage(index)}
+                        className={`relative aspect-square rounded-lg overflow-hidden border-2 transition-all duration-200 ${
+                          selectedGalleryImage === index 
+                            ? 'border-purple-500 ring-2 ring-purple-200' 
+                            : 'border-gray-200 hover:border-purple-300'
+                        }`}
+                      >
+                        <div className="w-full h-full bg-gray-100 flex items-center justify-center">
+                          <img 
+                            src={image}
+                            alt={`Gallery image ${index + 1}`}
+                            className="w-full h-full object-contain p-1"
+                            loading="lazy"
+                          />
+                        </div>
+                        {selectedGalleryImage === index && (
+                          <div className="absolute inset-0 bg-purple-500 bg-opacity-20 flex items-center justify-center">
+                            <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
+                              <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                          </div>
+                        )}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </div>

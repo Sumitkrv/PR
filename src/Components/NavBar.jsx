@@ -377,7 +377,9 @@ const ModernNavbar = () => {
                 >
                   {item.dropdown ? (
                     <div
-                      className="nav-item group relative px-5 py-2.5 rounded-xl transition-all duration-400 hover:bg-purple-50/80 flex items-center cursor-pointer interactive"
+                      className={`nav-item group relative px-5 py-2.5 rounded-xl transition-all duration-400 hover:bg-purple-50/80 flex items-center cursor-pointer interactive ${
+                        hoveredItem === item.label ? 'bg-white/90' : ''
+                      }`}
                       style={{ animationDelay: `${index * 80}ms` }}
                     >
                       <div className="flex items-center space-x-2">
@@ -538,7 +540,9 @@ const ModernNavbar = () => {
                   <div key={item.label}>
                     {item.dropdown ? (
                       <div 
-                        className="group flex items-center justify-between p-3 rounded-xl hover:bg-purple-50/60 transition-all duration-300 cursor-pointer interactive"
+                        className={`group flex items-center justify-between p-3 rounded-xl hover:bg-purple-50/60 transition-all duration-300 cursor-pointer interactive ${
+                          mobileOpenDropdown === item.label ? 'bg-white/90' : ''
+                        }`}
                         onClick={() => toggleMobileDropdown(item.label)}
                       >
                         <div className="flex items-center space-x-3">

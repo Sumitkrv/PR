@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
+import { scrollToSection } from '../utils/navigation.js';
 
 const Testimonials = () => {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -551,18 +552,10 @@ const Testimonials = () => {
                   className="px-8 py-4 rounded-xl font-semibold text-white bg-white/20 backdrop-blur-md border border-white/30 hover:bg-white/30 transition-all duration-300 shadow-lg hover:shadow-xl relative overflow-hidden group"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.98 }}
+                  onClick={() => scrollToSection('contact', 80)}
                 >
                   <span className="relative z-10">Start Your Journey Today</span>
                   <div className="absolute inset-0 bg-white/10 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
-                </motion.button>
-                
-                <motion.button 
-                  className="px-8 py-4 rounded-xl font-semibold text-purple-900 bg-white hover:bg-purple-50 transition-all duration-300 shadow-lg hover:shadow-xl"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.98 }}
-                  style={{color: '#64419a'}}
-                >
-                  View Case Studies
                 </motion.button>
               </div>
               

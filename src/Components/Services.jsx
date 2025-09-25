@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import { scrollToSection } from '../utils/navigation.js';
 
 const Services = () => {
   const [activeService, setActiveService] = useState(0);
@@ -580,6 +581,7 @@ const Services = () => {
               style={{ backgroundColor: '#8666A5' }}
               onMouseEnter={() => !isMobile && setCursorVariant("ctaHover")}
               onMouseLeave={() => !isMobile && setCursorVariant("default")}
+              onClick={() => scrollToSection('contact', 80)}
             >
               {/* Shimmer effect */}
               <div className="absolute inset-0 bg-gradient-to-r from-purple-700 via-purple-700 to-purple-700 opacity-0 group-hover:opacity-100 transition-opacity duration-400" />

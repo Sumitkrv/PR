@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import { Link } from "react-router-dom"; // Import Link for routing
 
 const AboutUs = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -22,7 +23,7 @@ const AboutUs = () => {
           observer.disconnect();
         }
       },
-      { threshold: 0.1 } // Reduced threshold for earlier trigger
+      { threshold: 0.1 }
     );
     
     if (sectionRef.current) {
@@ -36,7 +37,7 @@ const AboutUs = () => {
     if (!isIntersecting) return;
     
     const animateCounters = () => {
-      const duration = 2000; // Reduced duration for faster animation
+      const duration = 2000;
       const targets = { retention: 98, roi: 347, audience: 50, projects: 250 };
       const steps = 60;
       const stepDuration = duration / steps;
@@ -85,23 +86,25 @@ const AboutUs = () => {
       icon: "🚀",
       title: "Startup Launch Specialists",
       description: "We specialize in launching startups and building them into recognizable, scalable brands from the ground up.",
-      gradient: "from-purple-400 to-purple-500"
+      gradient: "from-purple-400 to-purple-500",
+      target: "case-studies"
     },
     {
       icon: "⭐",
       title: "Brand Building",
       description: "From defining visual identity to building online and offline presence, we create lasting brand impact.",
-      gradient: "from-purple-500 to-purple-600"
+      gradient: "from-purple-500 to-purple-600",
+      target: "services"
     },
     {
       icon: "🤝",
       title: "Growth Partnership",
       description: "We believe in 'You Grow, We Grow' - your success is our success in this collaborative journey.",
-      gradient: "from-purple-600 to-purple-700"
+      gradient: "from-purple-600 to-purple-700",
+      target: "contact"
     }
   ];
 
-  // Improved image handling with fallback
   const handleImageError = (e) => {
     e.target.style.display = 'none';
     const fallback = e.target.nextSibling;
@@ -115,7 +118,11 @@ const AboutUs = () => {
       id="about" 
       ref={sectionRef}
       className="pb-12 md:pb-24 bg-gradient-to-br from-gray-50 via-purple-50 to-purple-100 relative overflow-hidden"
-      style={{ paddingTop: 'clamp(5rem, 10vh, 7rem)' }}
+      style={{ 
+        paddingTop: 'clamp(7rem, 20vw, 10rem)', // Significantly increased padding top for mobile
+        scrollMarginTop: '100px', // Increased scroll margin for better navigation
+        marginTop: '0', // Ensure no negative margins
+      }}
       aria-label="About PR Sparkz"
     >
       {/* Enhanced Background Elements */}
@@ -125,14 +132,14 @@ const AboutUs = () => {
       <div className="absolute bottom-20 right-10 w-20 h-20 md:w-16 md:h-16 bg-purple-300 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-float"></div>
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        {/* Header Section - Improved Responsiveness */}
+        {/* Header Section - Added more top margin for mobile */}
         <div className={`text-center mb-12 md:mb-20 transition-all duration-700 ease-out ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-          <div className="inline-block mb-3 md:mb-4">
+          <div className="inline-block mb-3 md:mb-4 mt-4 md:mt-0">
             <span className="bg-gradient-to-r from-purple-600 to-purple-700 text-white px-3 py-1 md:px-4 md:py-2 rounded-full text-xs md:text-sm font-semibold tracking-wide uppercase shadow-md" style={{background: 'linear-gradient(to right, #64419a, #553c8b)'}}>
               About PR Sparkz
             </span>
           </div>
-          <h1 className="text-2xl md:text-4xl lg:text-5xl xl:text-6xl font-bold mb-4 md:mb-6">
+          <h1 className="text-2xl md:text-4xl lg:text-5xl xl:text-6xl font-bold mb-4 md:mb-6 mt-2">
             <span className="bg-gradient-to-r from-gray-800 via-purple-700 to-purple-800 bg-clip-text text-transparent leading-tight" style={{background: 'linear-gradient(to right, #1f2937, #64419a, #553c8b)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent'}}>
               Building Iconic Brands
             </span>
@@ -148,13 +155,13 @@ const AboutUs = () => {
           </div>
         </div>
 
-        {/* Main Content Grid - Improved Mobile Layout */}
-        <div className="grid lg:grid-cols-2 gap-6 md:gap-12 lg:gap-20 items-start mb-12 md:mb-20">
+        {/* Main Content Grid - Added more spacing */}
+        <div className="grid lg:grid-cols-2 gap-8 md:gap-12 lg:gap-20 items-start mb-12 md:mb-20">
           {/* Left Column - Founder Section */}
           <div className={`relative transition-all duration-700 delay-200 ease-out ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-8'}`}>
             <div className="space-y-4 md:space-y-6">
               {/* Founder Card */}
-              <div className="bg-white rounded-xl md:rounded-2xl p-4 md:p-6 shadow-lg md:shadow-xl border border-gray-100 relative overflow-hidden">
+              <div className="bg-white rounded-xl md:rounded-2xl p-4 md:p-6 shadow-lg md:shadow-xl border border-gray-100 relative overflow-hidden mt-4">
                 <div className="absolute top-0 right-0 w-16 h-16 md:w-24 md:h-24 bg-gradient-to-br from-purple-100 to-purple-200 rounded-full -translate-y-8 md:-translate-y-12 translate-x-8 md:translate-x-12 opacity-60"></div>
                 
                 <div className="relative z-10">
@@ -205,7 +212,7 @@ const AboutUs = () => {
 
           {/* Right Column - Content */}
           <div className={`transition-all duration-700 delay-400 ease-out ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-8'}`}>
-            <div className="space-y-4 md:space-y-6">
+            <div className="space-y-4 md:space-y-6 mt-4">
               <div>
                 <h2 className="text-xl md:text-2xl lg:text-3xl font-bold text-gray-800 mb-3 md:mb-4">Our Expertise</h2>
                 <p className="text-gray-700 mb-3 md:mb-4 leading-relaxed text-sm md:text-base lg:text-lg font-light">
@@ -213,17 +220,23 @@ const AboutUs = () => {
                   Our integrated approach ensures consistent messaging across all touchpoints.
                 </p>
                 
-                {/* Services Grid - Improved Responsiveness */}
+                {/* Services Grid */}
                 <div className="grid grid-cols-2 gap-3 mb-4 md:mb-6">
                   {[
-                    { icon: "📱", name: "Social Media Marketing", color: "purple" },
-                    { icon: "🌟", name: "Influencer Marketing", color: "purple" },
-                    { icon: "📰", name: "PR & Offline Events", color: "purple" },
-                    { icon: "🎯", name: "Performance Marketing", color: "purple" }
+                    { icon: "📱", name: "Social Media Marketing", color: "purple", target: "services" },
+                    { icon: "🌟", name: "Influencer Marketing", color: "purple", target: "services" },
+                    { icon: "📰", name: "PR & Offline Events", color: "purple", target: "services" },
+                    { icon: "🎯", name: "Performance Marketing", color: "purple", target: "services" }
                   ].map((service, index) => (
                     <div 
                       key={index}
-                      className="bg-white p-3 rounded-lg border border-gray-200 shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1 hover:border-purple-300"
+                      className="bg-white p-3 rounded-lg border border-gray-200 shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1 hover:border-purple-300 cursor-pointer"
+                      onClick={() => {
+                        const targetSection = document.getElementById(service.target);
+                        if (targetSection) {
+                          targetSection.scrollIntoView({ behavior: 'smooth' });
+                        }
+                      }}
                     >
                       <div className="text-purple-600 text-lg mb-1" style={{color: '#64419a'}}>{service.icon}</div>
                       <h4 className="font-semibold text-gray-800 text-xs md:text-sm leading-tight">{service.name}</h4>
@@ -237,7 +250,7 @@ const AboutUs = () => {
                 </p>
               </div>
               
-              {/* Interactive Features - Improved Touch Targets */}
+              {/* Interactive Features */}
               <div className="space-y-2 md:space-y-3">
                 <h3 className="font-semibold text-gray-800 text-lg md:text-xl">Why Choose Us</h3>
                 {features.map((feature, index) => (
@@ -249,7 +262,13 @@ const AboutUs = () => {
                         : 'bg-gray-50/50 border-gray-200 hover:border-purple-200'
                     }`}
                     onMouseEnter={() => setActiveFeature(index)}
-                    onClick={() => setActiveFeature(index)}
+                    onClick={() => {
+                      setActiveFeature(index);
+                      const targetSection = document.getElementById(feature.target);
+                      if (targetSection) {
+                        targetSection.scrollIntoView({ behavior: 'smooth' });
+                      }
+                    }}
                     aria-pressed={activeFeature === index}
                     aria-label={`Feature: ${feature.title}. ${feature.description}`}
                   >
@@ -274,16 +293,26 @@ const AboutUs = () => {
                 ))}
               </div>
 
-              {/* CTA Buttons - Stack on mobile */}
+              {/* CTA Buttons - Updated Meet Our Team button to use Link */}
               <div className="flex flex-col sm:flex-row gap-2 md:gap-3 pt-2">
-                <button className="group bg-gradient-to-r from-purple-600 to-purple-700 text-white px-4 py-2 md:px-6 md:py-3 rounded-lg font-semibold hover:from-purple-700 hover:to-purple-800 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 flex items-center justify-center text-sm md:text-base" style={{background: 'linear-gradient(to right, #64419a, #553c8b)'}}>
+                <Link 
+                  to="/team"
+                  className="group bg-gradient-to-r from-purple-600 to-purple-700 text-white px-4 py-2 md:px-6 md:py-3 rounded-lg font-semibold hover:from-purple-700 hover:to-purple-800 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 flex items-center justify-center text-sm md:text-base text-center" 
+                  style={{background: 'linear-gradient(to right, #64419a, #553c8b)'}}
+                >
                   <span>Meet Our Team</span>
                   <svg className="w-4 h-4 ml-2 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
                   </svg>
-                </button>
+                </Link>
                 
-                <button className="bg-white text-purple-700 px-4 py-2 md:px-6 md:py-3 rounded-lg font-semibold border border-gray-200 hover:border-purple-400 hover:bg-gray-50 transition-all duration-300 shadow-sm hover:shadow-md text-sm md:text-base" style={{color: '#64419a', borderColor: '#e5e7eb'}}>
+                <button 
+                  className="bg-white text-purple-700 px-4 py-2 md:px-6 md:py-3 rounded-lg font-semibold border border-gray-200 hover:border-purple-400 hover:bg-gray-50 transition-all duration-300 shadow-sm hover:shadow-md text-sm md:text-base" 
+                  style={{color: '#64419a', borderColor: '#e5e7eb'}}
+                  onClick={() => {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                  }}
+                >
                   Our Process
                 </button>
               </div>
@@ -293,7 +322,7 @@ const AboutUs = () => {
 
         {/* Enhanced Stats Section */}
         <div className={`transition-all duration-700 delay-600 ease-out ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-          <div className="bg-white rounded-xl md:rounded-2xl p-6 md:p-8 lg:p-12 shadow-lg md:shadow-xl border border-gray-100 relative overflow-hidden">
+          <div className="bg-white rounded-xl md:rounded-2xl p-6 md:p-8 lg:p-12 shadow-lg md:shadow-xl border border-gray-100 relative overflow-hidden mt-8">
             <div className="absolute top-0 left-0 w-full h-1 md:h-1.5 bg-gradient-to-r from-purple-400 via-purple-500 to-purple-600 rounded-t-xl md:rounded-t-2xl" style={{background: 'linear-gradient(to right, #a78bfa, #64419a, #553c8b)'}}></div>
             
             <div className="text-center mb-6 md:mb-8 lg:mb-12">
