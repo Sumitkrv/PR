@@ -15,6 +15,7 @@
     "@fontsource/montserrat": "^5.2.6",
     "framer-motion": "^10.18.0",
     "gsap": "^3.13.0",
+    "lucide-react": "^0.544.0",
     "postprocessing": "^6.37.7",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
