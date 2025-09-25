@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import * as THREE from 'three';
-import { scrollToSection, handleSectionClick } from '../utils/navigation.js';
+import { scrollToSection, handleHashNavigation } from '../utils/navigation.js';
 
 const ModernNavbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -12,6 +12,7 @@ const ModernNavbar = () => {
   const dropdownTimeoutRef = useRef(null);
   const threeContainerRef = useRef(null);
   const location = useLocation();
+  const navigate = useNavigate();
   const sceneRef = useRef(null);
   const rendererRef = useRef(null);
   const cameraRef = useRef(null);
@@ -31,6 +32,11 @@ const ModernNavbar = () => {
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  // Handle hash navigation on location change
+  useEffect(() => {
+    handleHashNavigation();
+  }, [location.pathname]);
 
   // Initialize Three.js scene with lavender-themed effects
   useEffect(() => {
@@ -272,6 +278,23 @@ const ModernNavbar = () => {
     }
   };
 
+  // Enhanced section click handler with navigation support
+  const handleNavSectionClick = (e, sectionId) => {
+    e.preventDefault();
+    const isOnHomePage = location.pathname === '/';
+    
+    if (isOnHomePage) {
+      // We're on home page, just scroll to section
+      scrollToSection(sectionId, 80);
+    } else {
+      // We're on a different page, navigate to home first then scroll
+      navigate('/');
+      setTimeout(() => {
+        scrollToSection(sectionId, 80);
+      }, 100);
+    }
+  };
+
   const navItems = [
     { label: 'Home', path: '/', icon: '◉', isSection: false },
     { label: 'Services', path: '#services', icon: '◈', isSection: true },
@@ -380,9 +403,8 @@ const ModernNavbar = () => {
                   ) : item.isSection ? (
                     <a
                       href={item.path}
-                      onClick={(e) => handleSectionClick(e, item.path.substring(1))}
-                      className={`nav-item group relative px-5 py-2.5 rounded-xl transition-all duration-400 hover:bg-purple-50/80 flex items-center interactive cursor-pointer`}
-                      style={{ animationDelay: `${index * 80}ms` }}
+                      onClick={(e) => handleNavSectionClick(e, item.path.substring(1))}
+                      className="block w-full text-left px-5 py-3 text-gray-800 hover:text-purple-600 hover:bg-purple-50/50 transition-all duration-200 border-l-2 border-transparent hover:border-purple-500 interactive"
                     >
                       <div className="flex items-center space-x-2">
                         <span className="text-purple-600 text-sm group-hover:text-purple-700 transition-colors duration-300">
@@ -433,7 +455,7 @@ const ModernNavbar = () => {
                               key={dropdownItem.label}
                               href={dropdownItem.path}
                               onClick={(e) => {
-                                handleSectionClick(e, dropdownItem.path.substring(1));
+                                handleNavSectionClick(e, dropdownItem.path.substring(1));
                                 setHoveredItem(null);
                               }}
                               className="block px-5 py-2.5 text-gray-700 hover:text-purple-800 hover:bg-purple-50/60 transition-all duration-300 group cursor-pointer"
@@ -472,7 +494,7 @@ const ModernNavbar = () => {
 
             {/* Premium CTA Button */}
             <div className="hidden lg:flex items-center space-x-3">
-              <a href="#contact" onClick={(e) => handleSectionClick(e, 'contact')} className="group relative overflow-hidden px-6 py-2.5 rounded-xl bg-gradient-to-r from-purple-600 to-purple-700 transition-all duration-400 hover:scale-105 hover:shadow-xl hover:shadow-purple-500/30 interactive cursor-pointer">
+              <a href="#contact" onClick={(e) => handleNavSectionClick(e, 'contact')} className="group relative overflow-hidden px-6 py-2.5 rounded-xl bg-gradient-to-r from-purple-600 to-purple-700 transition-all duration-400 hover:scale-105 hover:shadow-xl hover:shadow-purple-500/30 interactive cursor-pointer">
                 <div className="absolute inset-0 bg-gradient-to-r from-purple-700 to-purple-800 opacity-0 group-hover:opacity-100 transition-opacity duration-400"></div>
                 <span className="relative z-10 text-white font-semibold text-sm flex items-center space-x-1.5 tracking-wide">
                   <span>Get Started</span>
@@ -538,7 +560,7 @@ const ModernNavbar = () => {
                       <a
                         href={item.path}
                         onClick={(e) => {
-                          handleSectionClick(e, item.path.substring(1));
+                          handleNavSectionClick(e, item.path.substring(1));
                           setIsMenuOpen(false);
                           setMobileOpenDropdown(null);
                         }}
@@ -584,7 +606,7 @@ const ModernNavbar = () => {
                               key={dropdownItem.label}
                               href={dropdownItem.path}
                               onClick={(e) => {
-                                handleSectionClick(e, dropdownItem.path.substring(1));
+                                handleNavSectionClick(e, dropdownItem.path.substring(1));
                                 setIsMenuOpen(false);
                                 setMobileOpenDropdown(null);
                               }}
@@ -618,7 +640,7 @@ const ModernNavbar = () => {
                 <a 
                   href="#contact"
                   onClick={(e) => {
-                    handleSectionClick(e, 'contact');
+                    handleNavSectionClick(e, 'contact');
                     setIsMenuOpen(false);
                     setMobileOpenDropdown(null);
                   }}

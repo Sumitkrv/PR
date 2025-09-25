@@ -242,11 +242,14 @@ const Services = () => {
   return (
     <section 
       id="services" 
-      className="min-h-screen py-12 md:py-20 lg:py-32 bg-gradient-to-br from-slate-50 via-white to-purple-50 text-slate-800 overflow-hidden relative"
+      className="min-h-screen pb-12 md:pb-20 lg:pb-32 bg-gradient-to-br from-slate-50 via-white to-purple-50 text-slate-800 overflow-hidden relative"
       ref={ref}
       onMouseEnter={() => !isMobile && setIsHovered(true)}
       onMouseLeave={() => !isMobile && setIsHovered(false)}
-      style={{ fontFamily: "'Montserrat', sans-serif" }}
+      style={{ 
+        fontFamily: "'Montserrat', sans-serif",
+        paddingTop: 'clamp(5rem, 10vh, 7rem)'
+      }}
     >
       {/* Animated background elements */}
       <div className="absolute inset-0">

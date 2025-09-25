@@ -94,7 +94,11 @@ const ContactForm = () => {
   };
 
   return (
-    <section id="contact" className="py-20 bg-gradient-to-br from-white to-purple-50 relative overflow-hidden">
+    <section 
+      id="contact" 
+      className="pb-20 bg-gradient-to-br from-white to-purple-50 relative overflow-hidden"
+      style={{ paddingTop: 'clamp(5rem, 10vh, 7rem)' }}
+    >
       {/* Simple background elements */}
       <div className="absolute inset-0 overflow-hidden">
         {/* Subtle lavender circles */}

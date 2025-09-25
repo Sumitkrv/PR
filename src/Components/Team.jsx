@@ -91,9 +91,9 @@ const Team = () => {
   return (
     <section 
       id="team"
-      className="py-12 sm:py-16 lg:py-20 px-4 lg:px-8 min-h-screen flex items-center relative overflow-hidden" 
+      className="pb-12 sm:pb-16 lg:pb-20 px-4 lg:px-8 min-h-screen flex items-center relative overflow-hidden" 
       style={{ 
-        paddingTop: '160px', 
+        paddingTop: 'clamp(5rem, 10vh, 7rem)', 
         scrollMarginTop: '120px',
         background: 'linear-gradient(135deg, #f8f6ff 0%, #ffffff 100%)'
       }}

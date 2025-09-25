@@ -229,7 +229,8 @@ const Testimonials = () => {
   return (
     <section 
       id="testimonials" 
-      className="py-20 bg-gradient-to-br from-purple-50 via-white to-purple-50 text-slate-900 overflow-hidden relative"
+      className="pb-20 bg-gradient-to-br from-purple-50 via-white to-purple-50 text-slate-900 overflow-hidden relative"
+      style={{ paddingTop: 'clamp(5rem, 10vh, 7rem)' }}
       ref={ref}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}

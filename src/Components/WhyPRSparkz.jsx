@@ -26,7 +26,8 @@ const WhyPRSparkz = () => {
     <section 
       id="why-pr-sparkz" 
       ref={sectionRef}
-      className="py-16 md:py-24 bg-gradient-to-br from-gray-50 via-purple-50 to-purple-100 relative overflow-hidden"
+      className="pb-16 md:pb-24 bg-gradient-to-br from-gray-50 via-purple-50 to-purple-100 relative overflow-hidden"
+      style={{ paddingTop: 'clamp(5rem, 10vh, 7rem)' }}
       aria-label="Why Choose PR Sparkz"
     >
       {/* Enhanced Background Elements */}

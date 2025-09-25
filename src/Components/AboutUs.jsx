@@ -114,7 +114,8 @@ const AboutUs = () => {
     <section 
       id="about" 
       ref={sectionRef}
-      className="pt-16 pb-12 md:py-24 bg-gradient-to-br from-gray-50 via-purple-50 to-purple-100 relative overflow-hidden"
+      className="pb-12 md:pb-24 bg-gradient-to-br from-gray-50 via-purple-50 to-purple-100 relative overflow-hidden"
+      style={{ paddingTop: 'clamp(5rem, 10vh, 7rem)' }}
       aria-label="About PR Sparkz"
     >
       {/* Enhanced Background Elements */}
@@ -158,10 +159,10 @@ const AboutUs = () => {
                 
                 <div className="relative z-10">
                   <div className="flex flex-col items-center text-center">
-                    {/* Founder Image with better fallback */}
+                    {/* Founder Image with actual photo */}
                     <div className="w-24 h-24 md:w-32 md:h-32 lg:w-40 lg:h-40 bg-gradient-to-br from-purple-200 to-purple-300 rounded-full mb-3 md:mb-4 overflow-hidden border-4 border-white shadow-lg relative" style={{background: 'linear-gradient(135deg, #c4b5fd, #a78bfa)'}}>
                       <img 
-                        src="/logo.png" // Updated to use available logo
+                        src="/PR-FD.jpeg"
                         alt="Priyanka Khandelwal - Founder of PR Sparkz" 
                         className="w-full h-full object-cover"
                         onError={handleImageError}
