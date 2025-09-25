@@ -113,7 +113,7 @@ const SparkzHero = () => {
       className="min-h-screen bg-gradient-to-b from-gray-50 to-white flex items-center justify-center px-4 sm:px-6 lg:px-8 relative overflow-hidden"
       style={{ 
         fontFamily: "'Montserrat', sans-serif", 
-        paddingTop: 'clamp(6rem, 15vh, 10rem)',
+        paddingTop: 'clamp(8rem, 20vh, 12rem)',
         minHeight: '100dvh' // Use dynamic viewport height for mobile
       }}
       role="banner"
@@ -306,7 +306,7 @@ const SparkzHero = () => {
                   className="block opacity-0 mb-2 sm:mb-3"
                   style={{ animation: 'fadeInUp 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.3s forwards' }}
                 >
-                  Strategic Growth
+                  You Grow,
                 </span>
                 <span 
                   className="block text-gray-700 opacity-0"
@@ -315,7 +315,7 @@ const SparkzHero = () => {
                     animation: 'fadeInUp 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.6s forwards' 
                   }}
                 >
-                  For Visionary Brands
+                  We Grow
                 </span>
               </h1>
             </div>
@@ -326,7 +326,7 @@ const SparkzHero = () => {
               style={{ animation: 'fadeIn 1s ease-out 0.9s forwards' }}
             >
               <h2 className="text-responsive-lg sm:text-responsive-xl lg:text-responsive-2xl font-medium text-purple-700 mb-4 sm:mb-6 leading-relaxed px-2">
-                Transforming Digital Presence into Market Leadership
+                Your brand's growth is our growth
               </h2>
             </div>
 
@@ -358,11 +358,11 @@ const SparkzHero = () => {
                   lineHeight: '1.7'
                 }}
               >
-                <span className="opacity-0" style={{animation: 'fadeIn 0.8s ease-out 1.7s forwards'}}>We partner with ambitious businesses </span>
-                <span className="opacity-0" style={{animation: 'fadeIn 0.8s ease-out 2s forwards'}}>to create transformative digital experiences</span>
+                <span className="opacity-0" style={{animation: 'fadeIn 0.8s ease-out 1.7s forwards'}}>We don't just manage digital presence — we nurture it. </span>
+                <span className="opacity-0" style={{animation: 'fadeIn 0.8s ease-out 2s forwards'}}>Every story we craft is aimed at one goal: </span>
                 <br className="hidden sm:block" />
-                <span className="opacity-0" style={{animation: 'fadeIn 0.8s ease-out 2.3s forwards'}}>that drive measurable growth </span>
-                <span className="opacity-0" style={{animation: 'fadeIn 0.8s ease-out 2.6s forwards'}}>and lasting impact.</span>
+                <span className="opacity-0" style={{animation: 'fadeIn 0.8s ease-out 2.3s forwards'}}>creating transformative digital journeys that </span>
+                <span className="opacity-0" style={{animation: 'fadeIn 0.8s ease-out 2.6s forwards'}}>spark visibility and drive measurable impact.</span>
               </p>
             </div>
 
@@ -408,9 +408,9 @@ const SparkzHero = () => {
                   }
                 }}
                 onBlur={handleButtonLeave}
-                aria-label="Start a new project with us"
+                aria-label="Let's grow together - start working with us"
               >
-                <span className="relative z-10 group-hover:text-[#64419a] transition-colors duration-300">Start a Project</span>
+                <span className="relative z-10 group-hover:text-[#64419a] transition-colors duration-300">Let's Grow Together</span>
                 <div className="absolute inset-0 bg-white transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" aria-hidden="true"></div>
               </a>
               
@@ -473,7 +473,7 @@ const SparkzHero = () => {
                     key={index}
                     className="w-16 sm:w-20 lg:w-24 h-6 sm:h-8 bg-gradient-to-r from-gray-200 to-gray-300 rounded-md opacity-60 hover:opacity-100 transition-all duration-300 hover:scale-105 flex-shrink-0"
                     style={{
-                      animation: `fadeIn 0.6s ease-out ${3.8 + index * 0.2}s forwards`
+                      animation: `fadeIn 0.6s ease-out ${3.7 + index * 0.2}s forwards`
                     }}
                     aria-hidden="true"
                   ></div>
@@ -896,24 +896,51 @@ const SparkzHero = () => {
 
         /* Mobile-specific styles */
         @media (max-width: 768px) {
+          /* Additional safety margin for various mobile navbars */
+          [role="banner"] {
+            padding-top: 8rem !important;
+            min-height: 100dvh; /* Dynamic viewport height */
+            margin-top: 0;
+          }
+          
+          /* Ensure content starts well below navbar */
+          .text-center {
+            padding-top: 1rem;
+          }
+          
           .text-responsive-4xl {
-            font-size: 2rem;
+            font-size: 2.25rem;
+            line-height: 1.1;
+          }
+          
+          .text-responsive-5xl {
+            font-size: 2.5rem;
             line-height: 1.1;
           }
           
           .text-responsive-lg {
-            font-size: 1.1rem;
+            font-size: 1.125rem;
+            line-height: 1.6;
+          }
+          
+          .text-responsive-xl {
+            font-size: 1.25rem;
+            line-height: 1.6;
+          }
+          
+          .text-responsive-base {
+            font-size: 1rem;
             line-height: 1.6;
           }
           
           .px-6 {
-            padding-left: 1rem;
-            padding-right: 1rem;
+            padding-left: 1.25rem;
+            padding-right: 1.25rem;
           }
           
           .py-3 {
-            padding-top: 0.75rem;
-            padding-bottom: 0.75rem;
+            padding-top: 0.875rem;
+            padding-bottom: 0.875rem;
           }
           
           .space-y-6 > * + * {
@@ -930,14 +957,15 @@ const SparkzHero = () => {
           
           /* Ensure enough space for mobile navbar */
           [role="banner"] {
-            padding-top: 7rem !important;
+            padding-top: 8rem !important;
             min-height: 100dvh; /* Dynamic viewport height */
           }
           
           /* Touch-friendly button sizes */
-          button {
+          button, a.interactive {
             min-height: 48px;
-            min-width: 120px;
+            min-width: 140px;
+            touch-action: manipulation;
           }
           
           /* Prevent horizontal scroll */
@@ -949,11 +977,26 @@ const SparkzHero = () => {
           .leading-relaxed {
             line-height: 1.6;
           }
+          
+          /* Improved button spacing on mobile */
+          .space-y-4 > * + * {
+            margin-top: 1rem;
+          }
+          
+          /* Better paragraph spacing */
+          p {
+            margin-bottom: 1rem;
+          }
         }
         
         @media (max-width: 480px) {
           .text-responsive-4xl {
-            font-size: 1.75rem;
+            font-size: 1.875rem;
+            line-height: 1.2;
+          }
+          
+          .text-responsive-5xl {
+            font-size: 2rem;
             line-height: 1.2;
           }
           
@@ -962,9 +1005,19 @@ const SparkzHero = () => {
             line-height: 1.5;
           }
           
+          .text-responsive-xl {
+            font-size: 1.125rem;
+            line-height: 1.5;
+          }
+          
+          .text-responsive-base {
+            font-size: 0.875rem;
+            line-height: 1.5;
+          }
+          
           .px-4 {
-            padding-left: 0.75rem;
-            padding-right: 0.75rem;
+            padding-left: 1rem;
+            padding-right: 1rem;
           }
           
           .py-3 {
@@ -978,7 +1031,7 @@ const SparkzHero = () => {
           
           /* Smaller padding for very small screens */
           [role="banner"] {
-            padding-top: 6rem !important;
+            padding-top: 7rem !important;
             padding-left: 1rem;
             padding-right: 1rem;
           }
@@ -996,17 +1049,117 @@ const SparkzHero = () => {
           .space-x-4 > * + * {
             margin-left: 0.75rem;
           }
+          
+          /* Better button sizing for small screens */
+          button, a.interactive {
+            min-height: 44px;
+            min-width: 120px;
+            padding: 0.75rem 1rem;
+            font-size: 0.875rem;
+          }
+          
+          /* Improved text readability */
+          h1 {
+            margin-bottom: 0.75rem;
+          }
+          
+          h2 {
+            margin-bottom: 1rem;
+          }
         }
         
         /* Landscape mobile adjustments */
         @media (max-width: 768px) and (orientation: landscape) {
           [role="banner"] {
-            padding-top: 4rem !important;
+            padding-top: 5rem !important;
             min-height: 100vh;
           }
           
           .space-y-6 > * + * {
+            margin-top: 0.75rem;
+          }
+          
+          .mt-8 {
             margin-top: 1rem;
+          }
+          
+          .mb-4 {
+            margin-bottom: 0.5rem;
+          }
+        }
+        
+        /* Enhanced smooth scrolling and transitions */
+        html {
+          scroll-behavior: smooth;
+        }
+        
+        /* Improved cursor interactions */
+        .interactive {
+          cursor: pointer;
+          will-change: transform, box-shadow;
+          backface-visibility: hidden;
+          -webkit-font-smoothing: antialiased;
+          -moz-osx-font-smoothing: grayscale;
+        }
+        
+        .interactive:hover {
+          cursor: pointer;
+        }
+        
+        /* Smooth transform animations */
+        .interactive, .spark-shape, .group {
+          transition: transform 0.3s cubic-bezier(0.4, 0.0, 0.2, 1),
+                      box-shadow 0.3s cubic-bezier(0.4, 0.0, 0.2, 1),
+                      opacity 0.3s ease,
+                      background-color 0.3s ease,
+                      border-color 0.3s ease;
+        }
+        
+        /* GPU acceleration for better performance */
+        .spark-shape, 
+        .animate-spark-twinkle-1,
+        .animate-spark-twinkle-2,
+        .animate-spark-twinkle-3,
+        .animate-spark-pulse-1,
+        .animate-spark-pulse-2,
+        .animate-spark-rotate-1,
+        .animate-spark-rotate-2,
+        .animate-spark-glow {
+          transform: translateZ(0);
+          will-change: transform, opacity;
+        }
+        
+        /* Reduced motion preferences */
+        @media (prefers-reduced-motion: reduce) {
+          * {
+            animation-duration: 0.01ms !important;
+            animation-iteration-count: 1 !important;
+            transition-duration: 0.01ms !important;
+          }
+          
+          .spark-shape {
+            transform: none !important;
+            animation: none !important;
+          }
+        }
+        
+        /* Extra safety for mobile devices with large navbars */
+        @media (max-width: 768px) and (max-height: 700px) {
+          [role="banner"] {
+            padding-top: 6rem !important;
+          }
+        }
+        
+        /* For devices with notches or status bars */
+        @supports (padding: max(0px)) {
+          [role="banner"] {
+            padding-top: max(8rem, env(safe-area-inset-top, 0) + 6rem) !important;
+          }
+          
+          @media (max-width: 480px) {
+            [role="banner"] {
+              padding-top: max(7rem, env(safe-area-inset-top, 0) + 5rem) !important;
+            }
           }
         }
       `}</style>

@@ -357,9 +357,9 @@ const ModernNavbar = () => {
       path: '#', 
       icon: '◎',
       dropdown: [
+        { label: 'About', path: '/about', isSection: false },
         { label: 'Portfolio', path: '/portfolio', isSection: false },
         { label: 'Team', path: '/team', isSection: false },
-        { label: 'About', path: '#about', isSection: true },
       ]
     },
     { label: 'Contact', path: '#contact', icon: '◐', isSection: true }
