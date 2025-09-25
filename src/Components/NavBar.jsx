@@ -8,8 +8,6 @@ const ModernNavbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [hoveredItem, setHoveredItem] = useState(null);
   const [mobileOpenDropdown, setMobileOpenDropdown] = useState(null);
-  const cursorRef = useRef(null);
-  const animationFrameRef = useRef(null);
   const menuRef = useRef(null);
   const dropdownTimeoutRef = useRef(null);
   const threeContainerRef = useRef(null);
@@ -236,82 +234,7 @@ const ModernNavbar = () => {
     };
   }, []);
 
-  // Premium bubble cursor effect with proper cleanup
-  useEffect(() => {
-    // Don't create cursor on touch devices
-    if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
-      document.body.classList.remove('custom-cursor');
-      return;
-    }
 
-    document.body.classList.add('custom-cursor');
-    
-    const cursor = document.createElement('div');
-    cursor.className = 'premium-cursor';
-    document.body.appendChild(cursor);
-    cursorRef.current = cursor;
-    
-    let mouseX = 0, mouseY = 0;
-    let cursorX = 0, cursorY = 0;
-    
-    const updateCursor = () => {
-      cursorX += (mouseX - cursorX) * 0.12;
-      cursorY += (mouseY - cursorY) * 0.12;
-      
-      if (cursorRef.current) {
-        cursorRef.current.style.left = `${cursorX}px`;
-        cursorRef.current.style.top = `${cursorY}px`;
-      }
-      
-      animationFrameRef.current = requestAnimationFrame(updateCursor);
-    };
-    
-    const handleMouseMove = (e) => {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
-    };
-    
-    const handleMouseEnter = () => {
-      if (cursorRef.current) {
-        cursorRef.current.classList.add('cursor-hover');
-      }
-    };
-    
-    const handleMouseLeave = () => {
-      if (cursorRef.current) {
-        cursorRef.current.classList.remove('cursor-hover');
-      }
-    };
-    
-    document.addEventListener('mousemove', handleMouseMove);
-    animationFrameRef.current = requestAnimationFrame(updateCursor);
-    
-    // Add hover effects to interactive elements
-    const interactiveElements = document.querySelectorAll('a, button, [role="button"], .interactive');
-    interactiveElements.forEach(el => {
-      el.addEventListener('mouseenter', handleMouseEnter);
-      el.addEventListener('mouseleave', handleMouseLeave);
-    });
-
-    return () => {
-      document.removeEventListener('mousemove', handleMouseMove);
-      
-      if (animationFrameRef.current) {
-        cancelAnimationFrame(animationFrameRef.current);
-      }
-      
-      interactiveElements.forEach(el => {
-        el.removeEventListener('mouseenter', handleMouseEnter);
-        el.removeEventListener('mouseleave', handleMouseLeave);
-      });
-      
-      if (cursor && document.body.contains(cursor)) {
-        document.body.removeChild(cursor);
-      }
-      
-      document.body.classList.remove('custom-cursor');
-    };
-  }, []);
 
   // Close menu when clicking outside
   useEffect(() => {
@@ -714,36 +637,9 @@ const ModernNavbar = () => {
         </div>
       </nav>
 
-      {/* Add CSS styles for the cursor and animations */}
+      {/* Add CSS styles for animations */}
       <style jsx global>{`
         @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
-        
-        .premium-cursor {
-          position: fixed;
-          width: 16px;
-          height: 16px;
-          background: radial-gradient(circle, rgba(166, 139, 227, 0.6) 0%, rgba(139, 114, 208, 0.4) 50%, transparent 70%);
-          border: 1px solid rgba(166, 139, 227, 0.4);
-          border-radius: 50%;
-          pointer-events: none;
-          z-index: 9999;
-          transition: width 0.3s, height 0.3s, background 0.3s, transform 0.3s;
-          transform: translate(-50%, -50%);
-          backdrop-filter: blur(1px);
-        }
-        
-        .cursor-hover {
-          width: 36px;
-          height: 36px;
-          background: radial-gradient(circle, rgba(166, 139, 227, 0.4) 0%, rgba(139, 114, 208, 0.25) 50%, transparent 70%);
-          border: 2px solid rgba(166, 139, 227, 0.5);
-          transform: translate(-50%, -50%) scale(1.1);
-        }
-        
-        body.custom-cursor, 
-        body.custom-cursor * {
-          cursor: none !important;
-        }
         
         /* Premium scroll animations */
         @keyframes float-in {
@@ -775,7 +671,6 @@ const ModernNavbar = () => {
 
         /* High-performance animations */
         @media (prefers-reduced-motion: reduce) {
-          .premium-cursor,
           .interactive,
           .nav-item {
             transition: none;
