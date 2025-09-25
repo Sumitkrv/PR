@@ -162,14 +162,14 @@ const Team = () => {
         
         {/* CTA Button */}
         <div className="text-center">
-          <button className="group px-8 py-4 bg-gradient-to-r from-purple-600 to-purple-800 text-white rounded-xl font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
-            <span className="flex items-center justify-center">
+          {/* <button className="group px-8 py-4 bg-gradient-to-r from-purple-600 to-purple-800 text-white rounded-xl font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"> */}
+            {/* <span className="flex items-center justify-center">
               View All Team Members
               <svg className="w-5 h-5 ml-3 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
               </svg>
-            </span>
-          </button>
+            </span> */}
+          {/* </button> */}
         </div>
       </div>
 

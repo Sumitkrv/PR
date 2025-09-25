@@ -376,19 +376,25 @@ const ModernNavbar = () => {
                   {item.dropdown ? (
                     <div
                       className={`nav-item group relative px-5 py-2.5 rounded-xl transition-all duration-400 flex items-center cursor-pointer interactive ${
-                        hoveredItem === item.label ? 'bg-white/90 shadow-lg' : 'hover:bg-purple-50/80'
+                        hoveredItem === item.label ? 'bg-purple-600 shadow-lg' : 'hover:bg-purple-50/80'
                       }`}
                       style={{ animationDelay: `${index * 80}ms` }}
                     >
                       <div className="flex items-center space-x-2">
-                        <span className="text-purple-600 text-sm group-hover:text-purple-700 transition-colors duration-300">
+                        <span className={`text-sm transition-colors duration-300 ${
+                          hoveredItem === item.label ? 'text-white' : 'text-purple-600 group-hover:text-purple-700'
+                        }`}>
                           {item.icon}
                         </span>
-                        <span className="text-gray-800 font-medium group-hover:text-purple-800 transition-all duration-300 tracking-wide">
+                        <span className={`font-medium transition-all duration-300 tracking-wide ${
+                          hoveredItem === item.label ? 'text-white' : 'text-gray-800 group-hover:text-purple-800'
+                        }`}>
                           {item.label}
                         </span>
                         <svg 
-                          className="w-3 h-3 text-purple-500 transition-transform duration-300 group-hover:rotate-180 group-hover:text-purple-600" 
+                          className={`w-3 h-3 transition-transform duration-300 group-hover:rotate-180 ${
+                            hoveredItem === item.label ? 'text-white' : 'text-purple-500 group-hover:text-purple-600'
+                          }`} 
                           fill="none" 
                           stroke="currentColor" 
                           viewBox="0 0 24 24"
@@ -397,9 +403,9 @@ const ModernNavbar = () => {
                         </svg>
                       </div>
                       
-                      {/* Enhanced hover glow effect */}
+                      {/* Enhanced hover glow effect - only show when not active */}
                       <div className={`absolute inset-0 rounded-xl bg-gradient-to-r from-purple-100/30 to-purple-200/30 transition-all duration-400 ${
-                        hoveredItem === item.label ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'
+                        hoveredItem === item.label ? 'opacity-0' : 'opacity-0 group-hover:opacity-100'
                       }`}></div>
                     </div>
                   ) : item.isSection ? (
@@ -552,18 +558,28 @@ const ModernNavbar = () => {
                     {item.dropdown ? (
                       <div 
                         className={`group flex items-center justify-between p-3 rounded-xl transition-all duration-300 cursor-pointer interactive ${
-                          mobileOpenDropdown === item.label ? 'bg-white/90' : 'hover:bg-purple-50/60'
+                          mobileOpenDropdown === item.label ? 'bg-purple-600 text-white' : 'hover:bg-purple-50/60'
                         }`}
                         onClick={() => toggleMobileDropdown(item.label)}
                       >
                         <div className="flex items-center space-x-3">
-                          <span className="text-purple-600 text-lg">{item.icon}</span>
-                          <span className="text-gray-800 font-medium group-hover:text-purple-800 text-base">
+                          <span className={`text-lg transition-colors duration-300 ${
+                            mobileOpenDropdown === item.label ? 'text-white' : 'text-purple-600'
+                          }`}>
+                            {item.icon}
+                          </span>
+                          <span className={`font-medium text-base transition-colors duration-300 ${
+                            mobileOpenDropdown === item.label ? 'text-white' : 'text-gray-800 group-hover:text-purple-800'
+                          }`}>
                             {item.label}
                           </span>
                         </div>
                         <svg 
-                          className={`w-4 h-4 text-purple-500 transition-transform duration-300 ${mobileOpenDropdown === item.label ? 'rotate-180' : ''}`} 
+                          className={`w-4 h-4 transition-all duration-300 ${
+                            mobileOpenDropdown === item.label 
+                              ? 'rotate-180 text-white' 
+                              : 'text-purple-500'
+                          }`} 
                           fill="none" 
                           stroke="currentColor" 
                           viewBox="0 0 24 24"

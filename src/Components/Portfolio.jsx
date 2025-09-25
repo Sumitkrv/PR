@@ -1,16 +1,141 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 
 const CaseStudies = () => {
   const [activeCaseStudy, setActiveCaseStudy] = useState(null);
   const [isVisible, setIsVisible] = useState(false);
   const [selectedGalleryImage, setSelectedGalleryImage] = useState(0);
+  const [imageStatus, setImageStatus] = useState({});
+  const [isLoading, setIsLoading] = useState({});
+  const [touchStart, setTouchStart] = useState(null);
+  const modalRef = useRef();
   
   useEffect(() => {
     setIsVisible(true);
+    
+    // Pre-check image availability
+    caseStudiesData.forEach(async (study) => {
+      const imageExists = await checkImageExists(study.image);
+      setImageStatus(prev => ({...prev, [study.id]: imageExists}));
+    });
   }, []);
 
+  // Keyboard accessibility for modal
+  useEffect(() => {
+    const handleEscape = (e) => {
+      if (e.key === 'Escape' && activeCaseStudy) {
+        setActiveCaseStudy(null);
+      }
+    };
+
+    const handleClickOutside = (e) => {
+      if (modalRef.current && !modalRef.current.contains(e.target)) {
+        setActiveCaseStudy(null);
+      }
+    };
+
+    if (activeCaseStudy) {
+      document.addEventListener('keydown', handleEscape);
+      document.addEventListener('mousedown', handleClickOutside);
+      document.body.style.overflow = 'hidden'; // Prevent background scroll
+    }
+
+    return () => {
+      document.removeEventListener('keydown', handleEscape);
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.body.style.overflow = 'unset';
+    };
+  }, [activeCaseStudy]);
+
+  // Helper function to check if image exists
+  const checkImageExists = async (url) => {
+    if (!url) return false;
+    return new Promise((resolve) => {
+      const img = new Image();
+      img.onload = () => resolve(true);
+      img.onerror = () => resolve(false);
+      img.src = url;
+    });
+  };
+
+  // Touch gesture handlers for mobile gallery
+  const handleTouchStart = (e) => {
+    setTouchStart(e.touches[0].clientX);
+  };
+
+  const handleTouchEnd = (e) => {
+    if (!touchStart || !activeCaseStudy || !activeCaseStudy.gallery) return;
+    
+    const touchEnd = e.changedTouches[0].clientX;
+    const diff = touchStart - touchEnd;
+
+    if (Math.abs(diff) > 50) {
+      if (diff > 0) {
+        // Swipe left - next image
+        setSelectedGalleryImage(prev => 
+          prev < activeCaseStudy.gallery.length - 1 ? prev + 1 : 0
+        );
+      } else {
+        // Swipe right - previous image
+        setSelectedGalleryImage(prev => 
+          prev > 0 ? prev - 1 : activeCaseStudy.gallery.length - 1
+        );
+      }
+    }
+    setTouchStart(null);
+  };
+
+  // Image component with fallback
+  const ImageWithFallback = ({ src, alt, fallback, className, onLoad, ...props }) => {
+    const [error, setError] = useState(false);
+    const [loading, setLoading] = useState(true);
+
+    const handleError = () => {
+      setError(true);
+      setLoading(false);
+    };
+
+    const handleLoad = () => {
+      setLoading(false);
+      onLoad?.();
+    };
+
+    if (error) {
+      return fallback || (
+        <div className={`flex items-center justify-center bg-gray-100 ${className}`}>
+          <div className="text-center">
+            <span className="text-4xl mb-2 block">
+              {alt.includes('Jewelry') ? '💍' : 
+               alt.includes('Cannes') ? '🎬' :
+               alt.includes('Celebrity') ? '⭐' : '📸'}
+            </span>
+            <span className="text-gray-400 text-sm">Image not available</span>
+          </div>
+        </div>
+      );
+    }
+
+    return (
+      <div className={`relative ${className}`}>
+        {loading && (
+          <div className="absolute inset-0 flex items-center justify-center bg-gray-100">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-purple-500"></div>
+          </div>
+        )}
+        <img 
+          src={src} 
+          alt={alt}
+          className={`${className} ${loading ? 'opacity-0' : 'opacity-100'} transition-opacity duration-300`}
+          onError={handleError}
+          onLoad={handleLoad}
+          loading="lazy"
+          {...props}
+        />
+      </div>
+    );
+  };
+
   // Case study data with focus on jewelry, Cannes, and celebrity work
-  const caseStudies = [
+  const caseStudiesData = [
     {
       id: 1,
       title: "Luxury Jewelry Photo Shoot Campaign",
@@ -22,7 +147,7 @@ const CaseStudies = () => {
         { metric: "3.2M+", description: "social media impressions" },
         { metric: "68%", description: "boost in premium collection sales" }
       ],
-      image: "/images/portfolio/jewelry/image32.jpeg", // Main jewelry campaign image
+      image: "/images/portfolio/jewelry/image32.jpeg",
       category: "Jewelry Photography",
       gallery: [
         "/images/portfolio/jewelry/image29.jpeg",
@@ -51,7 +176,7 @@ const CaseStudies = () => {
         { metric: "2.8M", description: "social media engagements" },
         { metric: "5", description: "A-list celebrity collaborations" }
       ],
-      image: "/images/portfolio/cannes/image45.jpeg", // Main Cannes festival image
+      image: "/images/portfolio/cannes/image45.jpeg",
       category: "Cannes Festival",
       gallery: [
         "/images/portfolio/cannes/image43.jpeg",
@@ -74,7 +199,7 @@ const CaseStudies = () => {
         { metric: "₹12Cr", description: "earned media value" },
         { metric: "38%", description: "growth in target demographic reach" }
       ],
-      image: "/images/portfolio/celebrity/image49.jpeg", // Main celebrity collaboration image
+      image: "/images/portfolio/celebrity/image49.jpeg",
       category: "Celebrity Partnership",
       gallery: [
         "/images/portfolio/celebrity/image48.jpeg",
@@ -96,7 +221,7 @@ const CaseStudies = () => {
         { metric: "4.1M", description: "content views across platforms" },
         { metric: "31%", description: "improvement in campaign ROI" }
       ],
-      image: "/images/portfolio/commercial/image66.png", // Main commercial photography image
+      image: "/images/portfolio/commercial/image66.png",
       category: "Commercial Photography",
       gallery: [
         "/images/portfolio/commercial/image64.png",
@@ -114,16 +239,43 @@ const CaseStudies = () => {
     }
   ];
 
+  // Memoize case studies data
+  const caseStudies = useMemo(() => caseStudiesData, []);
+
   return (
     <section 
       id="case-studies" 
       className="pb-12 sm:pb-16 lg:pb-20 relative overflow-hidden" 
       style={{ 
-        paddingTop: 'clamp(7rem, 20vw, 10rem)', // Significantly increased padding top for mobile
-        scrollMarginTop: '100px', // Increased scroll margin for better navigation
+        paddingTop: 'clamp(7rem, 20vw, 10rem)',
+        scrollMarginTop: '100px',
         background: 'linear-gradient(135deg, #f8f6ff 0%, #ffffff 100%)'
       }}
     >
+      {/* Structured Data for SEO */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "ItemList",
+            "name": "Photography Case Studies",
+            "description": "Professional photography case studies showcasing successful campaigns",
+            "numberOfItems": caseStudies.length,
+            "itemListElement": caseStudies.map((study, index) => ({
+              "@type": "ListItem",
+              "position": index + 1,
+              "item": {
+                "@type": "CreativeWork",
+                "name": study.title,
+                "description": study.challenge,
+                "datePublished": "2024-01-01"
+              }
+            }))
+          })
+        }}
+      />
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Header - Mobile Optimized */}
         <div className={`text-center mb-12 sm:mb-16 transition-all duration-700 ease-out ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
@@ -158,33 +310,25 @@ const CaseStudies = () => {
                 willChange: 'transform'
               }}
             >
-              {/* Image Section - Mobile Optimized with proper fitting */}
+              {/* Image Section */}
               <div className="relative overflow-hidden h-48 sm:h-56 lg:h-64">
-                <div className="w-full h-full flex items-center justify-center bg-gray-100">
-                  {study.image ? (
-                    <img 
-                      src={study.image} 
-                      alt={study.title}
-                      className="w-full h-full object-contain p-2"
-                      loading="lazy"
-                      onError={(e) => {
-                        e.target.style.display = 'none';
-                        e.target.nextSibling.style.display = 'flex';
+                <ImageWithFallback
+                  src={study.image}
+                  alt={study.title}
+                  className="w-full h-full object-contain p-2 bg-gray-100"
+                  fallback={
+                    <div 
+                      className="w-full h-full flex items-center justify-center text-white text-4xl sm:text-5xl lg:text-6xl font-bold"
+                      style={{ 
+                        background: 'linear-gradient(135deg, #8666A5 0%, #6b4d7a 100%)'
                       }}
-                    />
-                  ) : null}
-                  <div 
-                    className="w-full h-full flex items-center justify-center text-white text-4xl sm:text-5xl lg:text-6xl font-bold"
-                    style={{ 
-                      background: 'linear-gradient(135deg, #8666A5 0%, #6b4d7a 100%)',
-                      display: study.image || (study.gallery && study.gallery.length > 0) ? 'none' : 'flex'
-                    }}
-                  >
-                    {study.category === 'Jewelry Photography' ? '💍' : 
-                     study.category === 'Cannes Festival' ? '🎬' :
-                     study.category === 'Celebrity Partnership' ? '⭐' : '📸'}
-                  </div>
-                </div>
+                    >
+                      {study.category === 'Jewelry Photography' ? '💍' : 
+                       study.category === 'Cannes Festival' ? '🎬' :
+                       study.category === 'Celebrity Partnership' ? '⭐' : '📸'}
+                    </div>
+                  }
+                />
                 {study.highlight && (
                   <div 
                     className="absolute top-3 left-3 sm:top-4 sm:left-4 text-white text-xs font-bold px-2 py-1 sm:px-3 sm:py-1 rounded-full"
@@ -201,7 +345,7 @@ const CaseStudies = () => {
                 </div>
               </div>
               
-              {/* Content Section - Mobile Optimized */}
+              {/* Content Section */}
               <div className="p-4 sm:p-6">
                 <div className="flex justify-between items-start mb-3 sm:mb-4">
                   <h3 className="text-lg sm:text-xl font-bold text-gray-800 leading-tight pr-2">{study.title}</h3>
@@ -224,7 +368,7 @@ const CaseStudies = () => {
                   {study.challenge}
                 </p>
                 
-                {/* Results Grid - Mobile Optimized */}
+                {/* Results Grid */}
                 <div className="grid grid-cols-3 gap-2 sm:gap-4 mb-4 sm:mb-6">
                   {study.results.map((result, i) => (
                     <div 
@@ -268,7 +412,7 @@ const CaseStudies = () => {
           ))}
         </div>
 
-        {/* Results Summary Section - Mobile Optimized */}
+        {/* Results Summary Section */}
         <div 
           className={`rounded-2xl p-6 sm:p-8 lg:p-12 text-white mb-12 sm:mb-16 transition-all duration-700 delay-300 ease-out ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
           style={{ background: 'linear-gradient(135deg, #8666A5 0%, #6b4d7a 100%)' }}
@@ -293,65 +437,56 @@ const CaseStudies = () => {
             </div>
           </div>
         </div>
-
-        {/* CTA Section - Mobile Optimized */}
-        <div className={`text-center transition-all duration-700 delay-500 ease-out ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-          <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-800 mb-4 sm:mb-6 px-4">Ready to achieve similar results?</h3>
-          <p className="text-gray-600 max-w-2xl mx-auto mb-6 sm:mb-8 text-sm sm:text-base px-4">
-            Let's discuss how our strategic approach can drive measurable growth for your brand.
-          </p>
-          <button 
-            onClick={() => {
-              window.scrollTo({ top: 0, behavior: 'smooth' });
-            }}
-            className="text-white px-6 py-3 sm:px-8 sm:py-3 rounded-xl font-semibold transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 text-sm sm:text-base"
-            style={{ 
-              background: 'linear-gradient(135deg, #8666A5 0%, #6b4d7a 100%)',
-              willChange: 'transform'
-            }}
-            onMouseEnter={(e) => {
-              e.target.style.background = 'linear-gradient(135deg, #6b4d7a 0%, #5a3f68 100%)';
-            }}
-            onMouseLeave={(e) => {
-              e.target.style.background = 'linear-gradient(135deg, #8666A5 0%, #6b4d7a 100%)';
-            }}
-          >
-            Schedule a Strategy Session
-          </button>
-        </div>
       </div>
 
-      {/* Case Study Modal - Mobile Optimized */}
+      {/* Case Study Modal */}
       {activeCaseStudy && (
         <div className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center p-4 z-50">
-          <div className="bg-white rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+          <div 
+            ref={modalRef}
+            className="bg-white rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto"
+            onTouchStart={handleTouchStart}
+            onTouchEnd={handleTouchEnd}
+          >
             <div className="relative h-48 sm:h-64 lg:h-80">
               {activeCaseStudy.gallery && activeCaseStudy.gallery.length > 0 ? (
                 <div className="relative w-full h-full bg-gray-100">
-                  <div className="w-full h-full flex items-center justify-center">
-                    <img 
-                      src={activeCaseStudy.gallery[selectedGalleryImage]} 
-                      alt={`${activeCaseStudy.title} - Image ${selectedGalleryImage + 1}`}
-                      className="max-w-full max-h-full object-contain p-4"
-                      onError={(e) => {
-                        e.target.style.display = 'none';
-                        e.target.nextSibling.style.display = 'flex';
-                      }}
-                    />
-                  </div>
+                  <ImageWithFallback
+                    src={activeCaseStudy.gallery[selectedGalleryImage]}
+                    alt={`${activeCaseStudy.title} - Image ${selectedGalleryImage + 1}`}
+                    className="w-full h-full object-contain p-4"
+                    fallback={
+                      <div 
+                        className="w-full h-full flex items-center justify-center text-white text-6xl"
+                        style={{ 
+                          background: 'linear-gradient(135deg, #8666A5 0%, #6b4d7a 100%)'
+                        }}
+                      >
+                        {activeCaseStudy.category === 'Jewelry Photography' ? '💍' : 
+                         activeCaseStudy.category === 'Cannes Festival' ? '🎬' :
+                         activeCaseStudy.category === 'Celebrity Partnership' ? '⭐' : '📸'}
+                      </div>
+                    }
+                  />
                   {activeCaseStudy.gallery.length > 1 && (
                     <>
                       <button 
-                        onClick={() => setSelectedGalleryImage(prev => prev > 0 ? prev - 1 : activeCaseStudy.gallery.length - 1)}
+                        onClick={() => setSelectedGalleryImage(prev => 
+                          prev > 0 ? prev - 1 : activeCaseStudy.gallery.length - 1
+                        )}
                         className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 rounded-full hover:bg-opacity-70 transition-all z-10"
+                        aria-label="Previous image"
                       >
                         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7"></path>
                         </svg>
                       </button>
                       <button 
-                        onClick={() => setSelectedGalleryImage(prev => prev < activeCaseStudy.gallery.length - 1 ? prev + 1 : 0)}
+                        onClick={() => setSelectedGalleryImage(prev => 
+                          prev < activeCaseStudy.gallery.length - 1 ? prev + 1 : 0
+                        )}
                         className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 rounded-full hover:bg-opacity-70 transition-all z-10"
+                        aria-label="Next image"
                       >
                         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7"></path>
@@ -363,33 +498,29 @@ const CaseStudies = () => {
                     </>
                   )}
                 </div>
-              ) : activeCaseStudy.image ? (
-                <div className="w-full h-full bg-gray-100 flex items-center justify-center">
-                  <img 
-                    src={activeCaseStudy.image} 
-                    alt={activeCaseStudy.title}
-                    className="max-w-full max-h-full object-contain p-4"
-                    onError={(e) => {
-                      e.target.style.display = 'none';
-                      e.target.nextSibling.style.display = 'flex';
-                    }}
-                  />
-                </div>
-              ) : null}
-              <div 
-                className="w-full h-full flex items-center justify-center text-white text-6xl sm:text-7xl lg:text-8xl"
-                style={{ 
-                  background: 'linear-gradient(135deg, #8666A5 0%, #6b4d7a 100%)',
-                  display: (activeCaseStudy.gallery && activeCaseStudy.gallery.length > 0) || activeCaseStudy.image ? 'none' : 'flex'
-                }}
-              >
-                {activeCaseStudy.category === 'Jewelry Photography' ? '💍' : 
-                 activeCaseStudy.category === 'Cannes Festival' ? '🎬' :
-                 activeCaseStudy.category === 'Celebrity Partnership' ? '⭐' : '📸'}
-              </div>
+              ) : (
+                <ImageWithFallback
+                  src={activeCaseStudy.image}
+                  alt={activeCaseStudy.title}
+                  className="w-full h-full object-contain p-4 bg-gray-100"
+                  fallback={
+                    <div 
+                      className="w-full h-full flex items-center justify-center text-white text-6xl"
+                      style={{ 
+                        background: 'linear-gradient(135deg, #8666A5 0%, #6b4d7a 100%)'
+                      }}
+                    >
+                      {activeCaseStudy.category === 'Jewelry Photography' ? '💍' : 
+                       activeCaseStudy.category === 'Cannes Festival' ? '🎬' :
+                       activeCaseStudy.category === 'Celebrity Partnership' ? '⭐' : '📸'}
+                    </div>
+                  }
+                />
+              )}
               <button 
                 onClick={() => setActiveCaseStudy(null)}
                 className="absolute top-3 right-3 sm:top-4 sm:right-4 bg-white text-gray-800 p-2 rounded-full shadow-md hover:bg-gray-100 transition-colors z-20"
+                aria-label="Close modal"
               >
                 <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
@@ -447,7 +578,9 @@ const CaseStudies = () => {
               {/* Gallery Thumbnails */}
               {activeCaseStudy.gallery && activeCaseStudy.gallery.length > 0 && (
                 <div className="mb-6">
-                  <h4 className="text-lg font-semibold text-gray-800 mb-4">Photo Gallery ({activeCaseStudy.gallery.length} images)</h4>
+                  <h4 className="text-lg font-semibold text-gray-800 mb-4">
+                    Photo Gallery ({activeCaseStudy.gallery.length} images)
+                  </h4>
                   <div className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 gap-2">
                     {activeCaseStudy.gallery.map((image, index) => (
                       <button
@@ -458,15 +591,22 @@ const CaseStudies = () => {
                             ? 'border-purple-500 ring-2 ring-purple-200' 
                             : 'border-gray-200 hover:border-purple-300'
                         }`}
+                        aria-label={`View image ${index + 1}`}
                       >
-                        <div className="w-full h-full bg-gray-100 flex items-center justify-center">
-                          <img 
-                            src={image}
-                            alt={`Gallery image ${index + 1}`}
-                            className="w-full h-full object-contain p-1"
-                            loading="lazy"
-                          />
-                        </div>
+                        <ImageWithFallback
+                          src={image}
+                          alt={`Gallery image ${index + 1}`}
+                          className="w-full h-full object-cover"
+                          fallback={
+                            <div className="w-full h-full flex items-center justify-center bg-gray-100">
+                              <span className="text-2xl">
+                                {activeCaseStudy.category === 'Jewelry Photography' ? '💍' : 
+                                 activeCaseStudy.category === 'Cannes Festival' ? '🎬' :
+                                 activeCaseStudy.category === 'Celebrity Partnership' ? '⭐' : '📸'}
+                              </span>
+                            </div>
+                          }
+                        />
                         {selectedGalleryImage === index && (
                           <div className="absolute inset-0 bg-purple-500 bg-opacity-20 flex items-center justify-center">
                             <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
