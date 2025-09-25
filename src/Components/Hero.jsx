@@ -110,10 +110,10 @@ const SparkzHero = () => {
     <div 
       id="home"
       ref={heroRef}
-      className="min-h-screen bg-gradient-to-b from-gray-50 to-white flex items-center justify-center px-4 sm:px-6 lg:px-8 relative overflow-hidden"
+      className="min-h-screen bg-gradient-to-b from-gray-50 to-white flex items-center justify-center px-4 sm:px-6 lg:px-8 relative overflow-hidden hero-section"
       style={{ 
         fontFamily: "'Montserrat', sans-serif", 
-        paddingTop: 'clamp(6rem, 15vh, 10rem)',
+        paddingTop: 'clamp(10rem, 22vh, 16rem)',
         minHeight: '100dvh' // Use dynamic viewport height for mobile
       }}
       role="banner"
@@ -918,7 +918,7 @@ const SparkzHero = () => {
           
           /* Ensure enough space for mobile navbar */
           [role="banner"] {
-            padding-top: 7rem !important;
+            padding-top: 12rem !important;
             min-height: 100dvh; /* Dynamic viewport height */
           }
           
@@ -964,9 +964,9 @@ const SparkzHero = () => {
             margin-top: 1rem;
           }
           
-          /* Smaller padding for very small screens */
+          /* Larger padding for very small screens */
           [role="banner"] {
-            padding-top: 6rem !important;
+            padding-top: 9rem !important;
             padding-left: 1rem;
             padding-right: 1rem;
           }
