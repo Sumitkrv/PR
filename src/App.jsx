@@ -7,9 +7,10 @@ import Footer from "./Components/Footer.jsx";
 
 // Page Components
 import Hero from "./Components/Hero.jsx";
-import Services from "./Components/Services.jsx";
-import Portfolio from "./Components/Portfolio.jsx";
 import AboutUs from "./Components/AboutUs.jsx";
+import Services from "./Components/Services.jsx";
+import WhyPRSparkz from "./Components/WhyPRSparkz.jsx";
+import Portfolio from "./Components/Portfolio.jsx";
 import Team from "./Components/Team.jsx";
 
 // UI Components
@@ -89,12 +90,13 @@ function App() {
               <>
                 <Hero />
                 <Services />
-                <AboutUs />
+                <WhyPRSparkz />
                 <Testimonials />
                 <ContactForm />
               </>
             }
           />
+          <Route path="/about" element={<AboutUs />} />
           <Route path="/portfolio" element={<Portfolio />} />
           <Route path="/team" element={<Team />} />
         </Routes>
