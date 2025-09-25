@@ -240,8 +240,6 @@ const ModernNavbar = () => {
     };
   }, []);
 
-
-
   // Close menu when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -377,8 +375,8 @@ const ModernNavbar = () => {
                 >
                   {item.dropdown ? (
                     <div
-                      className={`nav-item group relative px-5 py-2.5 rounded-xl transition-all duration-400 hover:bg-purple-50/80 flex items-center cursor-pointer interactive ${
-                        hoveredItem === item.label ? 'bg-white/90' : ''
+                      className={`nav-item group relative px-5 py-2.5 rounded-xl transition-all duration-400 flex items-center cursor-pointer interactive ${
+                        hoveredItem === item.label ? 'bg-white/90 shadow-lg' : 'hover:bg-purple-50/80'
                       }`}
                       style={{ animationDelay: `${index * 80}ms` }}
                     >
@@ -400,30 +398,15 @@ const ModernNavbar = () => {
                       </div>
                       
                       {/* Enhanced hover glow effect */}
-                      <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-purple-100/0 to-purple-200/0 group-hover:from-purple-100/30 group-hover:to-purple-200/30 transition-all duration-400"></div>
+                      <div className={`absolute inset-0 rounded-xl bg-gradient-to-r from-purple-100/30 to-purple-200/30 transition-all duration-400 ${
+                        hoveredItem === item.label ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'
+                      }`}></div>
                     </div>
                   ) : item.isSection ? (
                     <a
                       href={item.path}
                       onClick={(e) => handleNavSectionClick(e, item.path.substring(1))}
-                      className="block w-full text-left px-5 py-3 text-gray-800 hover:text-purple-600 hover:bg-purple-50/50 transition-all duration-200 border-l-2 border-transparent hover:border-purple-500 interactive"
-                    >
-                      <div className="flex items-center space-x-2">
-                        <span className="text-purple-600 text-sm group-hover:text-purple-700 transition-colors duration-300">
-                          {item.icon}
-                        </span>
-                        <span className="text-gray-800 font-medium group-hover:text-purple-800 transition-all duration-300 tracking-wide">
-                          {item.label}
-                        </span>
-                      </div>
-                    </a>
-                  ) : (
-                    <Link
-                      to={item.path}
-                      className={`nav-item group relative px-5 py-2.5 rounded-xl transition-all duration-400 hover:bg-purple-50/80 flex items-center interactive ${
-                        isActive(item.path) ? 'bg-purple-100/60' : ''
-                      }`}
-                      style={{ animationDelay: `${index * 80}ms` }}
+                      className="nav-item group relative px-5 py-2.5 rounded-xl transition-all duration-400 flex items-center interactive"
                     >
                       <div className="flex items-center space-x-2">
                         <span className="text-purple-600 text-sm group-hover:text-purple-700 transition-colors duration-300">
@@ -434,11 +417,35 @@ const ModernNavbar = () => {
                         </span>
                       </div>
                       
+                      {/* Hover background effect */}
+                      <div className="absolute inset-0 rounded-xl bg-purple-50/50 transition-all duration-400 opacity-0 group-hover:opacity-100"></div>
+                      
+                      {/* Hover border effect */}
+                      <div className="absolute inset-0 rounded-xl border-2 border-transparent transition-all duration-400 group-hover:border-purple-500/30"></div>
+                    </a>
+                  ) : (
+                    <Link
+                      to={item.path}
+                      className={`nav-item group relative px-5 py-2.5 rounded-xl transition-all duration-400 flex items-center interactive ${
+                        isActive(item.path) ? 'bg-purple-100/60' : ''
+                      }`}
+                      style={{ animationDelay: `${index * 80}ms` }}
+                    >
+                      <div className="flex items-center space-x-2 relative z-10">
+                        <span className="text-purple-600 text-sm group-hover:text-purple-700 transition-colors duration-300">
+                          {item.icon}
+                        </span>
+                        <span className="text-gray-800 font-medium group-hover:text-purple-800 transition-all duration-300 tracking-wide">
+                          {item.label}
+                        </span>
+                      </div>
+                      
+                      {/* Hover background effect */}
+                      <div className="absolute inset-0 rounded-xl bg-purple-50/50 transition-all duration-400 opacity-0 group-hover:opacity-100"></div>
+                      
                       {/* Enhanced active indicator */}
                       {isActive(item.path) && (
-                        <div className={`absolute bottom-0 left-1/2 transform -translate-x-1/2 rounded-full ${
-                          item.path === '/' ? 'w-3/4 h-0.5 bg-gradient-to-r from-purple-400 to-purple-500' : ''
-                        }`}></div>
+                        <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-3/4 h-0.5 bg-gradient-to-r from-purple-400 to-purple-500 rounded-full"></div>
                       )}
                     </Link>
                   )}
@@ -460,23 +467,25 @@ const ModernNavbar = () => {
                                 handleNavSectionClick(e, dropdownItem.path.substring(1));
                                 setHoveredItem(null);
                               }}
-                              className="block px-5 py-2.5 text-gray-700 hover:text-purple-800 hover:bg-purple-50/60 transition-all duration-300 group cursor-pointer"
+                              className="block px-5 py-2.5 text-gray-700 hover:text-purple-800 hover:bg-purple-50/60 transition-all duration-300 group cursor-pointer relative"
                             >
-                              <div className="flex items-center">
+                              <div className="flex items-center relative z-10">
                                 <div className="w-1 h-1 rounded-full mr-3 transition-all duration-300 bg-purple-400 opacity-0 group-hover:opacity-50"></div>
                                 <span className="text-sm font-medium">{dropdownItem.label}</span>
                               </div>
+                              {/* Hover background for dropdown items */}
+                              <div className="absolute inset-0 bg-purple-50/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                             </a>
                           ) : (
                             <Link
                               key={dropdownItem.label}
                               to={dropdownItem.path}
-                              className={`block px-5 py-2.5 text-gray-700 hover:text-purple-800 hover:bg-purple-50/60 transition-all duration-300 group ${
-                                isActive(dropdownItem.path) ? 'bg-purple-50/60 text-purple-800' : ''
+                              className={`block px-5 py-2.5 text-gray-700 hover:text-purple-800 transition-all duration-300 group relative ${
+                                isActive(dropdownItem.path) ? 'bg-purple-50/60 text-purple-800' : 'hover:bg-purple-50/60'
                               }`}
                               onClick={() => setHoveredItem(null)}
                             >
-                              <div className="flex items-center">
+                              <div className="flex items-center relative z-10">
                                 <div className={`w-1 h-1 rounded-full mr-3 transition-all duration-300 ${
                                   isActive(dropdownItem.path) 
                                     ? 'bg-purple-500 opacity-100' 
@@ -484,6 +493,8 @@ const ModernNavbar = () => {
                                 }`}></div>
                                 <span className="text-sm font-medium">{dropdownItem.label}</span>
                               </div>
+                              {/* Hover background for dropdown items */}
+                              <div className="absolute inset-0 bg-purple-50/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                             </Link>
                           )
                         ))}
@@ -540,8 +551,8 @@ const ModernNavbar = () => {
                   <div key={item.label}>
                     {item.dropdown ? (
                       <div 
-                        className={`group flex items-center justify-between p-3 rounded-xl hover:bg-purple-50/60 transition-all duration-300 cursor-pointer interactive ${
-                          mobileOpenDropdown === item.label ? 'bg-white/90' : ''
+                        className={`group flex items-center justify-between p-3 rounded-xl transition-all duration-300 cursor-pointer interactive ${
+                          mobileOpenDropdown === item.label ? 'bg-white/90' : 'hover:bg-purple-50/60'
                         }`}
                         onClick={() => toggleMobileDropdown(item.label)}
                       >
@@ -568,7 +579,7 @@ const ModernNavbar = () => {
                           setIsMenuOpen(false);
                           setMobileOpenDropdown(null);
                         }}
-                        className="group flex items-center justify-between p-3 rounded-xl hover:bg-purple-50/60 transition-all duration-300 interactive cursor-pointer"
+                        className="group flex items-center justify-between p-3 rounded-xl transition-all duration-300 interactive cursor-pointer hover:bg-purple-50/60"
                       >
                         <div className="flex items-center space-x-3">
                           <span className="text-purple-600 text-lg">{item.icon}</span>
@@ -584,7 +595,7 @@ const ModernNavbar = () => {
                           setIsMenuOpen(false);
                           setMobileOpenDropdown(null);
                         }}
-                        className={`group flex items-center justify-between p-3 rounded-xl hover:bg-purple-50/60 transition-all duration-300 interactive ${
+                        className={`group flex items-center justify-between p-3 rounded-xl transition-all duration-300 interactive hover:bg-purple-50/60 ${
                           isActive(item.path) ? 'bg-purple-50/70' : ''
                         }`}
                       >
