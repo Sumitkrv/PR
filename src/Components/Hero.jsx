@@ -28,45 +28,49 @@ const SparkzHero = () => {
         {/* Main large spinning star */}
         <div className="absolute top-1/4 left-1/4 opacity-20">
           <img
-            src={process.env.PUBLIC_URL ? process.env.PUBLIC_URL + '/assets/star.png' : '/assets/star.png'}
+            src="src/Components/star.png" // Make sure star.png is in your public folder
             alt="Animated Star"
-            className="w-32 h-32 md:w-40 md:h-40 animate-spin-slow"
+            className="w-32 h-32 animate-spin-slow"
             style={{ animationDuration: '15s' }}
           />
         </div>
+        
         {/* Medium star - opposite spin */}
-        <div className="absolute top-3/4 right-1/4 opacity-20">
+        <div className="absolute top-3/4 right-1/4 opacity-15">
           <img
-            src={process.env.PUBLIC_URL ? process.env.PUBLIC_URL + '/assets/star.png' : '/assets/star.png'}
+           src="src/Components/star.png"
             alt="Animated Star"
-            className="w-20 h-20 md:w-28 md:h-28 animate-spin-slow"
+            className="w-20 h-20 animate-spin-slow"
             style={{ animationDuration: '12s', animationDirection: 'reverse' }}
           />
         </div>
+        
         {/* Small star - faster spin */}
-        <div className="absolute top-1/2 left-3/4 opacity-30">
+        <div className="absolute top-1/2 left-3/4 opacity-25">
           <img
-            src={process.env.PUBLIC_URL ? process.env.PUBLIC_URL + '/assets/star.png' : '/assets/star.png'}
+            src="src/Components/star.png"
             alt="Animated Star"
-            className="w-16 h-16 md:w-20 md:h-20 animate-spin-slow"
+            className="w-16 h-16 animate-spin-slow"
             style={{ animationDuration: '8s' }}
           />
         </div>
+        
         {/* Additional small star */}
         <div className="absolute top-1/3 right-1/3 opacity-10">
           <img
-            src={process.env.PUBLIC_URL ? process.env.PUBLIC_URL + '/assets/star.png' : '/assets/star.png'}
+            src="src/Components/star.png"
             alt="Animated Star"
-            className="w-12 h-12 md:w-16 md:h-16 animate-spin-slow"
+            className="w-12 h-12 animate-spin-slow"
             style={{ animationDuration: '10s', animationDirection: 'reverse' }}
           />
         </div>
+        
         {/* Bottom left star */}
-        <div className="absolute bottom-1/4 left-1/5 opacity-20">
+        <div className="absolute bottom-1/4 left-1/5 opacity-18">
           <img
-            src={process.env.PUBLIC_URL ? process.env.PUBLIC_URL + '/assets/star.png' : '/assets/star.png'}
+           src="src/Components/star.png"
             alt="Animated Star"
-            className="w-14 h-14 md:w-20 md:h-20 animate-spin-slow"
+            className="w-14 h-14 animate-spin-slow"
             style={{ animationDuration: '14s' }}
           />
         </div>
