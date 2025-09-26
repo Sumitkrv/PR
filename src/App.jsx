@@ -53,7 +53,7 @@ function App() {
     // Fallback - always stop loading after 3 seconds max
     const fallbackTimer = setTimeout(() => {
       setLoading(false);
-    }, 8000);
+    }, 10000);
 
     return () => {
       clearTimeout(fallbackTimer);
