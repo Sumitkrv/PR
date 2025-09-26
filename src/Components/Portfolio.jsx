@@ -247,7 +247,8 @@ const CaseStudies = () => {
       id="case-studies" 
       className="pb-12 sm:pb-16 lg:pb-20 relative overflow-hidden" 
       style={{ 
-        paddingTop: 'clamp(7rem, 20vw, 10rem)',
+        fontFamily: "'Montserrat', sans-serif",
+        paddingTop: 'max(140px, calc(100px + 3rem))',
         scrollMarginTop: '100px',
         background: 'linear-gradient(135deg, #f8f6ff 0%, #ffffff 100%)'
       }}
@@ -390,17 +391,7 @@ const CaseStudies = () => {
                     setActiveCaseStudy(study);
                     setSelectedGalleryImage(0);
                   }}
-                  className="w-full font-medium py-2 sm:py-2.5 rounded-lg transition-all duration-300 flex items-center justify-center text-sm sm:text-base"
-                  style={{ 
-                    background: 'linear-gradient(135deg, rgba(134, 102, 165, 0.1) 0%, rgba(134, 102, 165, 0.2) 100%)',
-                    color: '#8666A5'
-                  }}
-                  onMouseEnter={(e) => {
-                    e.target.style.background = 'linear-gradient(135deg, rgba(134, 102, 165, 0.2) 0%, rgba(134, 102, 165, 0.3) 100%)';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.target.style.background = 'linear-gradient(135deg, rgba(134, 102, 165, 0.1) 0%, rgba(134, 102, 165, 0.2) 100%)';
-                  }}
+                  className="w-full px-8 py-4 bg-gradient-to-r from-[#5F4B8B] to-[#7c3aed] text-white font-bold rounded-xl hover:from-[#4b366b] hover:to-[#5F4B8B] transition-all duration-300 flex items-center justify-center min-w-[200px] shadow-lg"
                 >
                   View Detailed Case Study
                   <svg className="w-3 h-3 sm:w-4 sm:h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -588,8 +579,8 @@ const CaseStudies = () => {
                         onClick={() => setSelectedGalleryImage(index)}
                         className={`relative aspect-square rounded-lg overflow-hidden border-2 transition-all duration-200 ${
                           selectedGalleryImage === index 
-                            ? 'border-purple-500 ring-2 ring-purple-200' 
-                            : 'border-gray-200 hover:border-purple-300'
+                            ? 'border-[#5F4B8B] ring-2 ring-[#b39ddb]' 
+                            : 'border-gray-200 hover:border-[#5F4B8B]'
                         }`}
                         aria-label={`View image ${index + 1}`}
                       >

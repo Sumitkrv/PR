@@ -122,6 +122,7 @@ const AboutUs = () => {
         paddingTop: 'clamp(7rem, 20vw, 10rem)', // Significantly increased padding top for mobile
         scrollMarginTop: '100px', // Increased scroll margin for better navigation
         marginTop: '0', // Ensure no negative margins
+        fontFamily: "'Montserrat', sans-serif"
       }}
       aria-label="About PR Sparkz"
     >
@@ -297,8 +298,7 @@ const AboutUs = () => {
               <div className="flex flex-col sm:flex-row gap-2 md:gap-3 pt-2">
                 <Link 
                   to="/team"
-                  className="group bg-gradient-to-r from-purple-600 to-purple-700 text-white px-4 py-2 md:px-6 md:py-3 rounded-lg font-semibold hover:from-purple-700 hover:to-purple-800 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 flex items-center justify-center text-sm md:text-base text-center" 
-                  style={{background: 'linear-gradient(to right, #64419a, #553c8b)'}}
+                  className="group px-8 py-4 bg-gradient-to-r from-[#5F4B8B] to-[#7c3aed] text-white font-bold rounded-xl hover:from-[#4b366b] hover:to-[#5F4B8B] transition-all duration-300 flex items-center justify-center min-w-[200px] shadow-lg text-sm md:text-base text-center"
                 >
                   <span>Meet Our Team</span>
                   <svg className="w-4 h-4 ml-2 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -307,8 +307,7 @@ const AboutUs = () => {
                 </Link>
                 
                 <button 
-                  className="bg-white text-purple-700 px-4 py-2 md:px-6 md:py-3 rounded-lg font-semibold border border-gray-200 hover:border-purple-400 hover:bg-gray-50 transition-all duration-300 shadow-sm hover:shadow-md text-sm md:text-base" 
-                  style={{color: '#64419a', borderColor: '#e5e7eb'}}
+                  className="px-8 py-4 bg-white text-[#5F4B8B] font-bold border-2 border-[#b39ddb] rounded-xl hover:border-[#5F4B8B] hover:bg-[#ede7f6] transition-all duration-300 flex items-center justify-center min-w-[200px] shadow"
                   onClick={() => {
                     window.scrollTo({ top: 0, behavior: 'smooth' });
                   }}

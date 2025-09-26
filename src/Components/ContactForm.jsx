@@ -126,7 +126,10 @@ const ContactForm = () => {
     <section 
       id="contact" 
       className="pb-20 bg-gradient-to-br from-white to-purple-50 relative overflow-hidden"
-      style={{ paddingTop: 'clamp(5rem, 10vh, 7rem)' }}
+      style={{ 
+        paddingTop: 'clamp(5rem, 10vh, 7rem)',
+        fontFamily: "'Montserrat', sans-serif"
+      }}
     >
       {/* Simple background elements */}
       <div className="absolute inset-0 overflow-hidden">
@@ -460,7 +463,7 @@ const ContactForm = () => {
                 <motion.button
                   type="submit"
                   disabled={isLoading}
-                  className="w-full py-4 text-white font-semibold rounded-xl relative overflow-hidden group disabled:opacity-80 disabled:cursor-not-allowed shadow-md hover:shadow-lg transition-shadow bg-gradient-to-r from-purple-600 to-purple-400"
+                  className="w-full px-8 py-4 bg-gradient-to-r from-[#5F4B8B] to-[#7c3aed] text-white font-bold rounded-xl hover:from-[#4b366b] hover:to-[#5F4B8B] transition-all duration-300 flex items-center justify-center min-w-[200px] shadow-lg disabled:opacity-80 disabled:cursor-not-allowed"
                   whileHover={{ 
                     scale: isLoading ? 1 : 1.02,
                     boxShadow: "0 10px 25px -10px rgba(139, 92, 246, 0.5)"

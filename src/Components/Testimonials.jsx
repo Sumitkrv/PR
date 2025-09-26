@@ -274,7 +274,7 @@ const Testimonials = () => {
     <section 
       id="testimonials" 
       className="pb-20 bg-gradient-to-br from-purple-50 via-white to-purple-50 text-slate-900 overflow-hidden relative"
-      style={{ paddingTop: 'clamp(5rem, 10vh, 7rem)', fontFamily: 'Montserrat, sans-serif' }}
+      style={{ paddingTop: 'clamp(5rem, 10vh, 7rem)', fontFamily: "'Montserrat', sans-serif" }}
       ref={ref}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
@@ -595,7 +595,7 @@ const Testimonials = () => {
               
               <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
                 <motion.button 
-                  className="px-8 py-4 rounded-xl font-semibold text-white bg-white/20 backdrop-blur-md border border-white/30 hover:bg-white/30 transition-all duration-300 shadow-lg hover:shadow-xl relative overflow-hidden group flex items-center gap-2"
+                  className="group px-8 py-4 bg-gradient-to-r from-[#5F4B8B] to-[#7c3aed] text-white font-bold rounded-xl hover:from-[#4b366b] hover:to-[#5F4B8B] transition-all duration-300 flex items-center justify-center min-w-[200px] shadow-lg"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.98 }}
                   onClick={() => scrollToSection('contact', 80)}

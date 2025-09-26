@@ -28,7 +28,7 @@ const WhyPRSparkz = () => {
       id="why-pr-sparkz" 
       ref={sectionRef}
       className="pb-16 md:pb-24 bg-gradient-to-br from-gray-50 via-purple-50 to-purple-100 relative overflow-hidden"
-      style={{ paddingTop: 'clamp(5rem, 10vh, 7rem)' }}
+      style={{ paddingTop: 'max(140px, calc(100px + 3rem))', fontFamily: "'Montserrat', sans-serif" }}
       aria-label="Why Choose PR Sparkz"
     >
       {/* Enhanced Background Elements */}
@@ -129,9 +129,8 @@ const WhyPRSparkz = () => {
                 Let's spark it together.
               </p>
               <div className="flex flex-col sm:flex-row gap-2 md:gap-3 justify-center">
-                <button 
-                  className="group bg-white text-purple-700 px-6 py-3 md:px-8 md:py-4 rounded-lg font-semibold hover:bg-gray-50 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 flex items-center justify-center text-sm md:text-base" 
-                  style={{color: '#64419a'}}
+                <button
+                  className="group px-8 py-4 bg-gradient-to-r from-[#5F4B8B] to-[#7c3aed] text-white font-bold rounded-xl hover:from-[#4b366b] hover:to-[#5F4B8B] transition-all duration-300 flex items-center justify-center min-w-[200px] shadow-lg"
                   onClick={() => scrollToSection('contact', 80)}
                 >
                   <span>Let's Spark It Together</span>

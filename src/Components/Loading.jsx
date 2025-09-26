@@ -204,7 +204,7 @@ const PRLoadingAnimation = ({ progress: externalProgress = null }) => {
       
       <div className={`fixed inset-0 z-50 transition-all duration-1000 ease-out overflow-hidden ${
         currentPhase === 'done' ? 'animate-fade-out' : ''
-      }`}>
+      }`} style={{ fontFamily: "'Montserrat', sans-serif" }}>
         {/* Animated Background */}
         <div className="absolute inset-0 animate-background-pulse" />
         

@@ -29,7 +29,7 @@ const ScrollToTop = () => {
     return () => clearTimeout(timeoutId);
   }, [pathname]);
 
-  return null;
+  return <div style={{ fontFamily: "'Montserrat', sans-serif", display: 'none' }} />;
 };
 
 export default ScrollToTop;

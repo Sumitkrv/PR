@@ -61,6 +61,7 @@ const Team = () => {
       id="team"
       className="pb-16 sm:pb-20 lg:pb-24 px-4 lg:px-8 min-h-screen flex items-center relative overflow-hidden" 
       style={{ 
+        fontFamily: "'Montserrat', sans-serif",
         paddingTop: 'clamp(7rem, 20vw, 10rem)',
         scrollMarginTop: '100px',
         background: 'linear-gradient(135deg, #faf8ff 0%, #f5f3ff 50%, #ffffff 100%)'

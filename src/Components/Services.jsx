@@ -577,8 +577,7 @@ const Services = () => {
             </h4>
             
             <button 
-              className="group relative px-8 py-4 md:px-10 md:py-5 rounded-full bg-gradient-to-r from-purple-600 via-purple-600 to-purple-600 text-white font-bold text-base md:text-lg overflow-hidden shadow-2xl hover:shadow-purple-500/25 transform hover:scale-105 transition-all duration-400"
-              style={{ backgroundColor: '#8666A5' }}
+              className="group px-8 py-4 bg-gradient-to-r from-[#5F4B8B] to-[#7c3aed] text-white font-bold rounded-xl hover:from-[#4b366b] hover:to-[#5F4B8B] transition-all duration-300 flex items-center justify-center min-w-[200px] shadow-lg"
               onMouseEnter={() => !isMobile && setCursorVariant("ctaHover")}
               onMouseLeave={() => !isMobile && setCursorVariant("default")}
               onClick={() => scrollToSection('contact', 80)}
